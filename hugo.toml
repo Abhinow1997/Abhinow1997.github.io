@@ -1,5 +1,5 @@
 baseURL = "https://abhinow1997.github.io/"
-title = "Your Name - Portfolio"
+title = "console:portfolio"
 theme = "hugo-theme-console"
 languageCode = "en-us"
 
@@ -8,13 +8,9 @@ languageCode = "en-us"
   animateStyle = "animated zoomIn fast"
 
   [[params.navlinks]]
-  name = "about/"
-  url = "about/"
+  name = "about_me/"
+  url = "about_me/"
 
   [[params.navlinks]]
-  name = "posts/"
+  name = "my_projects/"
   url = "posts/"
-
-  [[params.navlinks]]
-  name = "photos/"
-  url = "photos/"

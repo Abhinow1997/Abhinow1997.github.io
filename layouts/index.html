@@ -1,0 +1,44 @@
+{{ define "main" }}
+
+<h1>Hi! My name is Abhinav :)</h1>
+
+<p>
+    As a data engineer passionate about innovation and efficiency, I have developed and implemented advanced ETL data pipelines for various projects. Proficient in Python, Java, and SQL, I have leveraged technologies including Hadoop, Spark, Azure to drive these projects to success.
+
+    Currently, I am pursuing my Master of Science in Information Systems at Northeastern University, where I am expanding my knowledge and skills in data architecture management and integration, as well as deep learning and data collection. I am eager to apply my data manipulation skills to new challenges and opportunities, and to connect with you and explore how I can contribute to your team or organization.  <a href="about/">(more)</a>
+</p>
+<br/>
+
+<h1>Latest posts</h1>
+
+<div class="posts-list">
+{{ with .Site.GetPage "/posts" }}
+    {{ range first 3 (sort .Data.Pages "Date" "desc" (where .Pages ".Params.private" "!=" true))}}
+        <div class="post">
+            <p>
+                <div class="date">{{ .PublishDate.Format "Jan. 2, 2006" }}</div>
+                <h1><a href="{{ .Permalink }}" title="{{ .Title }}">{{ .Title }}</a></h1>
+                {{ .Summary }}
+            </p>
+        </div>    
+    {{ end }}
+{{ end }}
+</div>
+
+<h1>Latest photos</h1>
+
+<div class="image-grid">
+{{ with .Site.GetPage "/photos" }}
+    {{ range first 3 (sort .Data.Pages "Date" "desc")}}
+        <a href="{{ .Permalink }}" title="{{ .Title }}">
+        {{ $image := .Page.Resources.GetMatch .Params.image }}
+        {{ with $image }}
+            {{ $thumb := .Resize "400x" }}
+            <img src="{{ $thumb.RelPermalink }}" alt="{{ .Title }}" class="img-responsive">
+        {{end}}
+        </a>
+    {{ end }}
+{{ end }}
+</div>
+
+{{ end }}
