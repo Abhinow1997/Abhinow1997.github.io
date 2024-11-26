@@ -4,12 +4,12 @@ date: 2024-11-14T15:00:00-05:00
 draft: false
 ---
 
-
-<img width="100" height="100" src="/images/profile.jpg">
-
 ## Abhinav Gangurde: Data Engineer & Analytics Specialist
 
-I am an experienced data engineer with a robust background in data analytics, ETL processes, and cloud-based solutions, particularly Azure. Currently pursuing my Master of Science in Information Systems at Northeastern University, I am expanding my expertise in advanced analytics, machine learning applications, and business intelligence.
+{{< figure src="/images/profile.jpg" alt="Abhinav Gangurde" width="10px" >}}
+
+I’m Abhinav Gangurde, a data enthusiast and Master's student in Information Systems at Northeastern University. With experience in data engineering, ETL pipelines, and big data analytics, I excel at turning raw data into actionable insights. Previously at Jio Platforms, I developed scalable data solutions for impactful decisions. Now, I'm focused on exploring technology and analytics to drive value in my projects. Visit my website to learn more about my journey and let's connect to create something extraordinary!
+
 
 ### Professional Experience
 
@@ -17,7 +17,7 @@ I am an experienced data engineer with a robust background in data analytics, ET
 
 As a Big Data Engineer, I:
 - Built real-time ETL pipelines, boosting data growth by 40% with robust data management and query capabilities.
-- Led and mentored 8+ data engineers as Scrum Master, enhancing problem-solving and fostering a teamwork environment.
+- Led and mentored 5+ data engineers as Scrum Master, enhancing problem-solving and fostering a teamwork environment.
 - Translated technical specifications into agile pipelines, implementing data transformation, algorithms, and models.
 - Conducted thorough code reviews and ETL architecture checks to optimize analytics workflows.
 
