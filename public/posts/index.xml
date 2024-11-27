@@ -6,12 +6,12 @@
     <description>Recent content in Posts on console:portfolio</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 26 Nov 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 12 Nov 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>RSS News Sentiment Analysis Dashboard</title>
       <link>http://localhost:1313/posts/rss-news-feed/</link>
-      <pubDate>Tue, 26 Nov 2024 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 12 Nov 2024 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/rss-news-feed/</guid>
       <description>&lt;p&gt;This project creates a daily-updated dashboard analyzing sentiment in news articles from various broadcasters. It uses RSS feeds to collect news data, performs sentiment analysis, and visualizes the results using a Streamlit web application.&lt;/p&gt;</description>
     </item>
