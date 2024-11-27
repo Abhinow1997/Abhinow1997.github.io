@@ -3,13 +3,12 @@ title = "Projects Postings"
 date = "2024-04-01"
 +++
 
-# Welcome to My Project Showcase
-
-## Greetings!
-
 Hello and welcome to my portfolio website! I'm thrilled to share my journey in data engineering and analytics with you.
 
 <!--more-->
+
+## Greetings!
+Hello and welcome to my portfolio website! I'm thrilled to share my journey in data engineering and analytics with you.
 
 ## About This Space
 

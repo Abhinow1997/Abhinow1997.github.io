@@ -27,7 +27,7 @@
       <link>http://localhost:1313/posts/introduction/</link>
       <pubDate>Mon, 01 Apr 2024 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/introduction/</guid>
-      <description>&lt;h1 id=&#34;welcome-to-my-project-showcase&#34;&gt;Welcome to My Project Showcase&lt;/h1&gt;&#xA;&lt;h2 id=&#34;greetings&#34;&gt;Greetings!&lt;/h2&gt;&#xA;&lt;p&gt;Hello and welcome to my portfolio website! I&amp;rsquo;m thrilled to share my journey in data engineering and analytics with you.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Hello and welcome to my portfolio website! I&amp;rsquo;m thrilled to share my journey in data engineering and analytics with you.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
