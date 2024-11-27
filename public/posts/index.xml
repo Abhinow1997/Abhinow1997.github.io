@@ -16,6 +16,13 @@
       <description>&lt;p&gt;This project creates a daily-updated dashboard analyzing sentiment in news articles from various broadcasters. It uses RSS feeds to collect news data, performs sentiment analysis, and visualizes the results using a Streamlit web application.&lt;/p&gt;</description>
     </item>
     <item>
+      <title>Jio - IKEA Notifications PoC</title>
+      <link>http://localhost:1313/posts/realtime-geolocation-notification/</link>
+      <pubDate>Mon, 01 Apr 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/realtime-geolocation-notification/</guid>
+      <description>&lt;p&gt;During my tenure as a data engineer at Jio Platforms, I was responsible for developing a proof of concept (PoC) pipeline and workflow tailored for two specific companies. This project involved collaborating closely with various stakeholders to understand their data requirements and business objectives. I designed and implemented a robust data pipeline that efficiently processed and transformed raw data into actionable insights.&lt;/p&gt;&#xA;&lt;p&gt;The workflow I worked on demonstrates the integration of Jio&amp;rsquo;s telecom infrastructure with IKEA&amp;rsquo;s retail operations to create targeted marketing opportunities. By utilizing Label Switch Router (LSR) data for efficient network routing and geohash location determination, the system enables time-sensitive, location-based notifications to Jio subscribers near IKEA stores. This innovative approach aims to increase in-store sales, provide targeted incentives, and potentially boost revenue for both Jio and IKEA, showcasing the power of combining telecom data with location-based services to enhance customer experiences and drive business growth.&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Introduction</title>
       <link>http://localhost:1313/posts/introduction/</link>
       <pubDate>Sat, 03 Aug 2019 00:00:00 +0000</pubDate>
