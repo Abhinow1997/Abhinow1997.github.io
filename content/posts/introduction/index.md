@@ -1,45 +1,29 @@
-+++
-title = "Introduction"
-date = "2019-08-03"
-+++
+# Welcome to My Project Showcase
 
-Hugo is an open-source project and lives by the work of its contributors. There are plenty of open issues, and we need your help to make Hugo even more awesome. You don't need to be a Go guru to contribute to the project's development.
+## Greetings!
 
-<!--more-->
+Hello and welcome to my portfolio website! I'm thrilled to share my journey in data engineering and analytics with you.
 
-## Assumptions
+## About This Space
 
-This contribution guide takes a step-by-step approach in hopes of helping newcomers. Therefore, we only assume the following:
+Here, you'll find a collection of projects I've worked on, showcasing my skills in data engineering, ETL processes, and cloud-based solutions. I'll be regularly updating this space with detailed breakdowns of my previous work, including:
 
-* You are new to Git or open-source projects in general
-* You are a fan of Hugo and enthusiastic about contributing to the project
+- Data pipeline implementations
+- Cloud migration projects
+- Sentiment analysis tools
+- And more!
 
-## Install Go
+## What to Expect
 
-The installation of Go should take only a few minutes. You have more than one option to get Go up and running on your machine.
+Each project page will provide insights into the challenges faced, technologies used, and the impact of the solutions developed. You'll get a glimpse into my problem-solving approach and the real-world applications of data science.
 
-If you are having trouble following the installation guides for Go, check out Go Bootcamp, which contains setups for every platform  or reach out to the Hugo community in the Hugo Discussion Forums.
+## Let's Connect
 
-### Install Go From Source
+I'm always eager to discuss data-driven solutions and innovative approaches in analytics. Whether you have questions about my projects, want to explore collaboration opportunities, or just want to chat about the exciting world of data, feel free to reach out!
 
-Download the latest stable version of Go and follow the official Go installation guide.
+You can connect with me via:
+- Email: gangurde.a@northeastern.edu
+- LinkedIn: [Abhinav Gangurde](https://linkedin.com/in/abhinav-gangurde)
+- Phone: +1 (857)-351-9271
 
-Once you're finished installing Go, let's confirm everything is working correctly. Open a terminal---or command line under Windows--and type the following:
-
-```
-go version
-```
-
-You should see something similar to the following written to the console. Note that the version here reflects the most recent version of Go as of the last update for this page:
-
-```
-go version go1.12 darwin/amd64
-```
-
-Next, make sure that you set up your `GOPATH` as described in the installation guide.
-
-You can print the `GOPATH` with `echo $GOPATH`. You should see a non-empty string containing a valid path to your Go workspace; for example:
-
-```
-/Users/<yourusername>/Code/go
-```
+Thank you for visiting, and I look forward to sharing my work with you!
