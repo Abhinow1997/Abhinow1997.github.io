@@ -6,8 +6,6 @@ draft: false
 
 ## Abhinav Gangurde: Data Engineer & Analytics Specialist
 
-{{< figure src="/images/profile.jpg" alt="Abhinav Gangurde" width="10px" >}}
-
 I’m Abhinav Gangurde, a data enthusiast and Master's student in Information Systems at Northeastern University. With experience in data engineering, ETL pipelines, and big data analytics, I excel at turning raw data into actionable insights. Previously at Jio Platforms, I developed scalable data solutions for impactful decisions. Now, I'm focused on exploring technology and analytics to drive value in my projects. Visit my website to learn more about my journey and let's connect to create something extraordinary!
 
 

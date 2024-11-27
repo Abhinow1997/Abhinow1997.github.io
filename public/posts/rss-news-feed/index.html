@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-us"> 
+  <head> 
+    <meta charset="utf-8"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <title>console:portfolio/posts/rss-news-sentiment-analysis/</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="all,follow">
+<meta name="googlebot" content="index,follow,snippet,archive">
+<link rel="stylesheet" href="http://localhost:1313/hugo-theme-console/css/terminal-0.7.4.min.css">
+<link rel="stylesheet" href="http://localhost:1313/hugo-theme-console/css/animate-4.1.1.min.css">
+<link rel="stylesheet" href="http://localhost:1313/hugo-theme-console/css/console.css">
+
+<meta property="og:title" content="RSS News Sentiment Analysis Dashboard" />
+<meta property="og:description" content="A daily-updated dashboard analyzing sentiment in news articles from various broadcasters" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/posts/rss-news-sentiment-analysis/" />
+<meta property="article:published_time" content="2024-11-14T00:00:00+00:00" />
+
+<meta name="twitter:title" content="RSS News Sentiment Analysis Dashboard"/>
+<meta name="twitter:description" content="A daily-updated dashboard analyzing sentiment in news articles from various broadcasters"/>
+</head> 
+<body class="terminal"> 
+  <div class="container"> 
+    <div class="terminal-nav"> 
+      <header class="terminal-logo"> 
+        <div class="logo terminal-prompt"> 
+          <a href="http://localhost:1313/" class="no-style site-name">console:portfolio</a>:~# 
+          <a href='http://localhost:1313/posts'>posts</a>/<a href='http://localhost:1313/posts/rss-news-sentiment-analysis'>rss-news-sentiment-analysis</a>/</div></header> <nav class="terminal-menu"> <ul vocab="https://schema.org/" typeof="BreadcrumbList"> <li><a href="http://localhost:1313/about_me/" typeof="ListItem">about_me/</a></li> <li><a href="http://localhost:1313/posts/" typeof="ListItem">my_projects/</a></li> </ul> </nav> </div> </div>
+          <div class="container animated zoomIn fast" >
+            <h1>RSS News Sentiment Analysis Dashboard</h1> Nov. 14, 2024
+<img src="https://github.com/user-attachments/assets/6d8f6b25-4c24-4723-b942-83fd67fe035d" alt="NewsSentimentFlow-Page-2"> <h2 id="overview">Overview</h2> <p>This project creates a daily-updated dashboard analyzing sentiment in news articles from various broadcasters. It uses RSS feeds to collect news data, performs sentiment analysis, and visualizes the results using a Streamlit web application.</p> <h2 id="pipeline">Pipeline</h2> <ol> <li><strong>Data Collection</strong> <ul> <li>Script: <code>rss_datacollection_feed.py</code></li> <li>Fetches news articles from RSS feeds of multiple broadcasters (BBC, NYC Times, CBS News, Aljazeera, The Guardian)</li> <li>Uses <code>requests</code> library to fetch RSS data</li> <li>Parses XML data using <code>xml.etree.ElementTree</code></li> </ul> </li> <li><strong>Sentiment Analysis</strong> <ul> <li>Utilizes VADER (Valence Aware Dictionary and sEntiment Reasoner) for sentiment scoring</li> <li>Calculates sentiment scores for both article titles and descriptions</li> </ul> </li> <li><strong>Data Processing</strong> <ul> <li>Cleans HTML tags from descriptions</li> <li>Removes duplicates</li> <li>Saves processed data to a CSV file with a date stamp</li> </ul> </li> <li><strong>Automated Daily Updates</strong> <ul> <li>Uses GitHub Actions for daily execution of the data collection script</li> <li>Workflow defined in <code>.github/workflows/daily_data_collection.yml</code></li> <li>Automatically commits and pushes updated data to the repository</li> </ul> </li> <li><strong>Visualization</strong> <ul> <li>Script: <code>app.py</code></li> <li>Creates a Streamlit dashboard</li> <li>Visualizations include: Article count by broadcaster, Average sentiment scores, Publication time distribution, Sentiment distribution pie charts</li> </ul> </li> <li><strong>Deployment</strong> <ul> <li>Hosted on Streamlit Cloud</li> <li>Automatically updates with the latest data</li> </ul> </li> </ol> <h2 id="key-features">Key Features</h2> <ul> <li>Daily automated data collection and analysis</li> <li>Sentiment analysis of news articles from multiple sources</li> <li>Interactive web dashboard for data exploration</li> <li>Version-controlled data storage using GitHub</li> </ul> <h2 id="technologies-used">Technologies Used</h2> <ul> <li>Python</li> <li>Pandas for data manipulation</li> <li>VADER for sentiment analysis</li> <li>Matplotlib for creating charts</li> <li>Streamlit for web application</li> <li>GitHub Actions for automation</li> </ul> <h2 id="setup-and-running">Setup and Running</h2> <ol> <li>Clone the repository</li> <li>Install dependencies: <code>pip install -r requirements.txt</code></li> <li>Run data collection: <code>python rss_datacollection_feed.py</code></li> <li>Launch Streamlit app: <code>streamlit run app.py</code></li> </ol> <h2 id="data-update-process">Data Update Process</h2> <p>The data is automatically updated daily through a GitHub Actions workflow. This ensures that the dashboard always displays the most recent news sentiment analysis.</p> <h2 id="dashboard-access">Dashboard Access</h2> <p>The live dashboard can be accessed at: <a href="https://rssnewssentimentanalysisdaily.streamlit.app">Link</a></p>
+<div class="footer">
+  Powered by <a href="https://gohugo.io/">Hugo</a> with
+  <a href="https://github.com/mrmierzejewski/hugo-theme-console/">Console Theme</a>. 
+</div></div>
+</body> </html>

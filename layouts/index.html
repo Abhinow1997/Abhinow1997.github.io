@@ -1,13 +1,35 @@
 {{ define "main" }}
 
-<h1>Hello Welcome! 👋</h1>
+<div style="display: flex; align-items: flex-start;gap: 100px;">
+  <div style="flex: 1;">
+    <h1>Hello Welcome! 👋</h1>
+    <p>I’m Abhinav, a data enthusiast and Master's student in Information Systems at Northeastern University.</p>
+    <p> Feel free to explore my website to learn more about my professional journey, projects, and the exciting world of data. Let’s connect and create something extraordinary!</p><a href="about_me/">(more)</a></p>
+  </div>
+  <div style="flex: 1;">
 
-<p>
-    I’m Abhinav, a data enthusiast and Master's student in Information Systems at Northeastern University.
-</p>
-<p> Feel free to explore my website to learn more about my professional journey, projects, and the exciting world of data. Let’s connect and create something extraordinary!</p><a href="about_me/">(more)</a>
-</p>
-<br/>
+<img src="/images/1731099934460.jpeg" alt="Abhinav Gangurde" style="width: 300px; height: 300px; border-radius: 50%; object-fit: cover;" />
+
+  </div>
+</div>
+
+<h1>Latest posts</h1>
+
+<div class="posts-list">
+{{ with .Site.GetPage "/posts" }}
+    {{ range first 3 (sort .Data.Pages "Date" "desc" (where .Pages ".Params.private" "!=" true))}}
+        <div class="post">
+            <p>
+                <div class="date">{{ .PublishDate.Format "Jan. 2, 2006" }}</div>
+                <h1><a href="{{ .Permalink }}" title="{{ .Title }}">{{ .Title }}</a></h1>
+                {{ .Summary }}
+            </p>
+        </div>    
+    {{ end }}
+{{ end }}
+</div>
+
+
 
 <h1>Connect with me:</h1>
 
@@ -47,7 +69,7 @@
   </div>
 
 
-<h1>Latest photos</h1>
+<!-- <h1>Latest posts</h1>
 <div class="image-grid">
 {{ with .Site.GetPage "/photos" }}
     {{ range first 3 (sort .Data.Pages "Date" "desc")}}
@@ -60,6 +82,6 @@
         </a>
     {{ end }}
 {{ end }}
-</div>
+</div> -->
 
 {{ end }}
