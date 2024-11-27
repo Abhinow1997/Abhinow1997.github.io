@@ -5,11 +5,10 @@ date = "2024-04-01"
 
 During my tenure as a data engineer at Jio Platforms, I was responsible for developing a proof of concept (PoC) pipeline and workflow tailored for two specific companies. This project involved collaborating closely with various stakeholders to understand their data requirements and business objectives. I designed and implemented a robust data pipeline that efficiently processed and transformed raw data into actionable insights. 
 
-The workflow I worked on demonstrates the integration of Jio's telecom infrastructure with IKEA's retail operations to create targeted marketing opportunities. By utilizing Label Switch Router (LSR) data for efficient network routing and geohash location determination, the system enables time-sensitive, location-based notifications to Jio subscribers near IKEA stores. This innovative approach aims to increase in-store sales, provide targeted incentives, and potentially boost revenue for both Jio and IKEA, showcasing the power of combining telecom data with location-based services to enhance customer experiences and drive business growth.
-
 <!--more-->
 
 # Jio - IKEA Notifications PoC
+The workflow I worked on demonstrates the integration of Jio's telecom infrastructure with IKEA's retail operations to create targeted marketing opportunities. By utilizing Label Switch Router (LSR) data for efficient network routing and geohash location determination, the system enables time-sensitive, location-based notifications to Jio subscribers near IKEA stores. This innovative approach aims to increase in-store sales, provide targeted incentives, and potentially boost revenue for both Jio and IKEA, showcasing the power of combining telecom data with location-based services to enhance customer experiences and drive business growth.
 
 ## LSR (Label Switch Router) Data
 

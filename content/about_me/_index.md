@@ -11,9 +11,9 @@ I’m Abhinav Gangurde, a data enthusiast and Master's student in Information Sy
 
 ### Professional Experience
 
-#### Jio Platforms Limited, Mumbai, India (July 2019 - July 2024)
+#### Reliance Jio Platforms Limited, Mumbai, India (July 2019 - July 2024)
 
-As a Big Data Engineer, I:
+As a Big Data Engineer, I: (January 2021 – July 2024)
 - Built real-time ETL pipelines, boosting data growth by 40% with robust data management and query capabilities.
 - Led and mentored 5+ data engineers as Scrum Master, enhancing problem-solving and fostering a teamwork environment.
 - Translated technical specifications into agile pipelines, implementing data transformation, algorithms, and models.
@@ -24,6 +24,12 @@ As a Big Data Engineer, I:
 - **Domain-Specific ETL Expertise**: Migrated and oversaw scalable ETL pipelines for 5-25 TB/hr real-time data, enhancing data handling for 300M+ telecom users.
 - **Data Mesh - Azure Cloud Stack**: Developed a scalable Data-as-a-Product framework on Azure, streamlining the Data Mesh journey for 5 different domain teams.
 - **DQP and Data Profiling Frameworks**: Created ETL data quality framework, reducing data issues by 35% and enabling scalable data profiling across diverse sources.
+
+As a Graduate Engineer Trainee, I: (July 2019 - Dec 2020)
+- Drove cross-functional communication with senior management, enhancing feature development efficiency by 30% through streamlined bug tracking and feedback analysis.
+- Presented insights to leadership, utilizing 100+ UAT test cases to boost task productivity by 25% and highlight product strengths with agile-driven dashboards.
+- Collaborated on process coordination with teams across Digital Business Solutions, establishing sustainable workflows and aligning release schedules to business needs.
+
 
 ### Education
 

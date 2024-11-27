@@ -9,6 +9,8 @@ date = "2024-04-01"
 
 Hello and welcome to my portfolio website! I'm thrilled to share my journey in data engineering and analytics with you.
 
+<!--more-->
+
 ## About This Space
 
 Here, you'll find a collection of projects I've worked on, showcasing my skills in data engineering, ETL processes, and cloud-based solutions. I'll be regularly updating this space with detailed breakdowns of my previous work, including:
