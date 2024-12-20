@@ -3,8 +3,7 @@ title = "Jio - IKEA Notifications PoC"
 date = "2024-04-01"
 +++
 
-During my tenure as a data engineer at Jio Platforms, I was responsible for developing a proof of concept (PoC) pipeline and workflow tailored for two specific companies. This project involved collaborating closely with various stakeholders to understand their data requirements and business objectives. I designed and implemented a robust data pipeline that efficiently processed and transformed raw data into actionable insights. 
-
+During my tenure as a data engineer at Jio Platforms, I was responsible for developing a proof of concept (PoC) pipeline and workflow tailored for two specific companies. This project involved collaborating closely with various stakeholders to understand their data requirements and business objectives. I designed and implemented a robust data pipeline that efficiently processed and transformed raw data into actionable insights.
 <!--more-->
 
 # Jio - IKEA Notifications PoC
