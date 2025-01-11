@@ -69,9 +69,9 @@ GitHub Actions for automation
 ### Setup and Running
 
 1. Clone the repository
-2. Install dependencies: `pip install -r requirements.txt`
-3. Run data collection: `python rss_datacollection_feed.py`
-4. Launch Streamlit app: `streamlit run app.py`
+2. Install dependencies: _pip install -r requirements.txt_
+3. Run data collection: _python rss_datacollection_feed.py_
+4. Launch Streamlit app: _streamlit run app.py_
 
 ### Data Update Process
 
