@@ -20,7 +20,7 @@
       <link>http://localhost:1313/posts/realtime-geolocation-notification/</link>
       <pubDate>Mon, 01 Apr 2024 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/realtime-geolocation-notification/</guid>
-      <description>&lt;p&gt;During my tenure as a data engineer at Jio Platforms, I was responsible for developing a proof of concept (PoC) pipeline and workflow tailored for two specific companies. This project involved collaborating closely with various stakeholders to understand their data requirements and business objectives. I designed and implemented a robust data pipeline that efficiently processed and transformed raw data into actionable insights.&lt;/p&gt;</description>
+      <description>&lt;p&gt;During my time as a data engineer at Jio Platforms, we developed a proof of concept (PoC) pipeline for IKEA. In early 2024, IKEA had four physical stores in India and wanted to boost walk-in sales by using Jio&amp;rsquo;s telecom customer data. Their goal was to provide discount coupons to customers entering or nearby the stores. We initiated this by using 4G and 5G Label Switch Router (LSR) data to determine live customer locations.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Projects Postings</title>
