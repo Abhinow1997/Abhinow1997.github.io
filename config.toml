@@ -1,0 +1,20 @@
+baseURL = "https://abhinow1997.github.io/"
+title = "Abhinav Portfolio"
+theme = "hugo-theme-console"
+languageCode = "en-us"
+
+[params]
+  titleCutting = true
+  animateStyle = "animated zoomIn fast"
+
+  [[params.navlinks]]
+  name = "about/"
+  url = "about/"
+
+  [[params.navlinks]]
+  name = "posts/"
+  url = "posts/"
+
+  [[params.navlinks]]
+  name = "photos/"
+  url = "photos/"
