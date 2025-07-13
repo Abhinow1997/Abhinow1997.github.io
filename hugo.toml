@@ -12,5 +12,5 @@ languageCode = "en-us"
   url = "about_me/"
 
   [[params.navlinks]]
-  name = "my_projects/"
+  name = "projects/"
   url = "posts/"
