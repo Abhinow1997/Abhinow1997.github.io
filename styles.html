@@ -79,7 +79,7 @@
                 <h3>Hello There</h3>
 
                 <h1>
-                My name is Abhinav. I'm a data engineer based in Boston, MA.
+                My name is Abhinav.
                 </h1>
 
                 <div class="home-content__buttons">
@@ -120,7 +120,7 @@
     </section> <!-- end s-home -->
 
 
-    <!-- styles
+    <!-- about me
     ================================================== -->
     <section id="styles" class="s-styles">
     
@@ -145,13 +145,179 @@
 
         </div>
 
+    <!-- work experience
+    ================================================== -->
+        <div class="row about-content about-content--timeline">
+
+            <div class="col-full text-center">
+                <h3>My Work Experience</h3>
+            </div>
+
+            <div class="col-six tab-full left">
+                <div class="timeline">
+
+                    <div class="timeline__block">
+                        <div class="timeline__bullet"></div>
+                        <div class="timeline__header">
+                            <p class="timeline__timeframe">January 2021 - July 2024</p>
+                            <h3>Reliance Jio</h3>
+                            <h5>Deputy Manager - Big Data Engineer</h5>
+                        </div>
+                        <div class="timeline__desc">
+                            <p>
+                                - Led the development of multi-million dollar data products that are core to the business using Python, SQL, Scala, PySpark, Hive and Airflow reducing decision-making time by 60% for telecom and supply chain enterprise domains.
+                                <br>- Mentored and led 5+ data engineers as Scrum Master, while delivering 15+ ad-hoc reports and use cases.
+                                <br>- Created metrics dashboards to identify data quantity and quality issues related to product releases and updates.
+                                <br>- Architected and maintained Hadoop MapReduce and Spark-based ETL batch and streaming pipelines processing data across 300M+ users, implementing CI/CD automation and data validation frameworks that ensured 95% data accuracy
+                                <br>- Led Hadoop-to-Azure Cloud migration, cutting infrastructure costs by 40% and enhancing scalability with distributed data pipelines to support a Data Mesh architecture across multiple domains
+                            </p>
+                        </div>
+                    </div> <!-- end timeline__block -->
+
+                    <div class="timeline__block">
+                        <div class="timeline__bullet"></div>
+                        <div class="timeline__header">
+                            <p class="timeline__timeframe">July 2019 - Dec 2020</p>
+                            <h5>Graduate Engineering Trainee</h5>
+                        </div>
+                        <div class="timeline__desc">
+                            <p>
+                                - Built KPI dashboards and automated data models, enhancing data-driven decision-making by 40% and improving analytical efficiency by collaborating with stakeholders to translate required business intelligence
+                                <br>- Managed multiple client projects from start to finish by gathering objectives, documenting processes, and creating user stories, demonstrating strong critical thinking and driving process improvements
+                                <br>- Created documentation to guide decisions made at the data organization level on which technologies to use to create a new data pipeline.
+                                <br>- Independently addressed on-call issues, often leading triaging efforts across several teams operating internationally.
+                            </p>
+                        </div>
+                    </div> <!-- end timeline__block -->
+
+                </div> <!-- end timeline -->
+            </div> <!-- end left -->
+
+            <div class="col-six tab-full right">
+                <div class="timeline">
+
+                    <div class="timeline__block">
+                        <div class="timeline__bullet"></div>
+                        <div class="timeline__header">
+                            <p class="timeline__timeframe">August 2019 - October 2021</p>
+                            <h3>Nike</h3>
+                            <h5>Data Science, Data Engineering, and Software Development</h5>
+                        </div>
+                        <div class="timeline__desc">
+                            - Developed machine learning and artificial intelligence models using natural language processing and classification algorithms with Python, Pandas, TensorFlow, scikit-learn, and Jupyter Notebook.
+                            <br> - Developed numerous extract, transform, load (ETL) pipelines using Python, SQL, Airflow, Snowflake and AWS.
+                            <br> - Developed Flask web applications (Python, JavaScript) and deployed via AWS EC2 for implementation of production-grade machine learning models.
+                            <br> - Developed scripts in Java and Python for geospatial software and geospatial data science.
+                        </div>
+                    </div> <!-- end timeline__block -->
+                    <br>
+
+                    <div class="timeline__block">
+                        <div class="timeline__bullet"></div>
+                        <div class="timeline__header">
+                            <p class="timeline__timeframe">October 2015 - June 2019</p>
+                            <h3>University of Washington</h3>
+                            <h5>Data Scientist - Climate Model Researcher</h5>
+                        </div>
+                        <div class="timeline__desc">
+                            <a href="https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2019GL084316">Publication</a>
+                            <p>Led research analytics for a three and half year project to analyze variabilities and inconsistincies in the world's best climate models. Analysis was performed using Python. Work was funded by NASA and the NSF.
+                        </div>
+                    </div> <!-- end timeline__block -->
+
+                    <div class="timeline__block">
+                        <div class="timeline__bullet"></div>
+                        <div class="timeline__header">
+                            <p class="timeline__timeframe">October 2018 - March 2019</p>
+                            <h5>Instructor</h5>
+                        </div>
+                        <div class="timeline__desc">	
+                            <p>Created two new undergraduate data science courses focusing on beginning and intermediate data science techniques in the field of oceanography. Courses were taught in Python, with a focus on the basics of numpy and pandas.</p>
+                        </div>
+                    </div> <!-- end timeline__block -->
+
+                </div> <!-- end timeline -->
+            </div> <!-- end right -->
+
+        </div> <!-- end about-content timeline -->
+
+    </section> <!-- end about -->
+
+
+    <!-- works
+    ================================================== -->
+    <section id="works" class="s-works target-section">
+        <div class="row narrow section-intro has-bottom-sep">
+            <div class="col-full text-center">
+                <h3>Side Work</h3>
+                <h1>Projects</h1>
+                <p class="lead">
+                    In UC Berkeley's Master of Information and Data Science (MIDS) program, I analyzed Bay Wheels
+                    bikeshare data to drive business growth. <br> Analysis with SQL, Python, BigQuery, Jupyter Notebook. <a href='mids/W205/bay_wheels.html'>Link</a>
+                </p>
+                <a href="mids/W205/bay_wheels.html" target="_blank" rel="noopener noreferrer">
+                    <img id="ocean_img" src="images/mids/w205_sf.jpg" alt="HTML5 Icon">
+                </a>
+                <p class="lead" id="proj2">
+                    In UC Berkeley's Master of Information and Data Science (MIDS) program, my team and I extensively analyzed the relationship
+                    between mobility and the number of COVID-19 cases per capita in each US state. <br> Analysis in R. <a href='mids/W203/w203_sp21_sec_11_lab_2-owl-old-woo-li_report.html'>Link</a>
+                </p>
+                <a href="mids/W203/w203_sp21_sec_11_lab_2-owl-old-woo-li_report.html" target="_blank" rel="noopener noreferrer">
+                    <img id="ocean_img" src="images/mids/mids_W203_project.png" alt="HTML5 Icon">
+                </a>
+            </div>
+            <div class="col-full text-center" id="proj2">
+                <p class="lead">
+                    At the University of Washington I created and taught undergraduate <br> classes (<a href="https://github.com/Patrick-Old/OCEAN340">Github</a>) on how to 
+                    create things like this. <br> Content included Python, numpy, matplotlib and more. <br> Data Source: <a href="https://www.nodc.noaa.gov/OC5/woa18/woa18data.html">World Ocean Atlas 2018</a>
+                </p>
+                <a href="https://github.com/Patrick-Old/ocean_fun" target="_blank" rel="noopener noreferrer">
+                    <img id="ocean_img" src="images/ocean/woa_all_test.gif" alt="HTML5 Icon">
+                </a>
+            </div>
+
+            <div id="proj2" class="col-full text-center">
+                <p class="lead">
+                    Now I use deep neural networks and machine learning to help bring ideas to life. Test out the following digit recognizer as an example <a href="https://github.com/Patrick-Old/neural-nets/blob/master/Tensorflow%20Digit%20Classification.ipynb">(Github)</a>, 
+                    which uses a convolutional neural network I built in Tensorflow (99.3% accurate on MNIST dataset).
+                    <a href="https://bensonruan.com/handwritten-digit-recognition-with-tensorflow-js/" target="_blank">UI Credit: Benson Ruan</a>
+                </p>
+                <div class="container mt-1">
+                    <div class="digit-demo-container">
+                        <h3 id="digit_description">Hand Written Digit Recognition <br>Draw a Digit Below</h3>
+                            <div class="flex-two">
+                                <div id="canvas_box_wrapper" class="canvas-box-wrapper">
+                                    <div id="canvas_box" class="canvas-box"></div>
+                                    <div class="col-12">
+                                        <button id="clear-button" class="btn btn-dark">Clear</button>
+                                    </div>
+                                    <div class="col-12">
+                                        <button id="predict-button" class="btn btn-dark">Predict</button>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div id="result_box">
+                                        <canvas id="chart_box" width="100" height="100"></canvas>
+                                    </div>
+                                    <div class="col-12 d-block mt-2 mt-md-0 text-md-left prediction-text" id="recognizer_result"></div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> <!-- end works -->
+
+
+
+
         <div class="row">
 
             <div class="col-six tab-full">
 
                 <h3>Paragraph and Image</h3>
 
-                <p><a href="#"><img width="120" height="120" class="pull-left" alt="sample-image" src="images/sample-image.jpg"></a>
+                <p><a href="#"><img width="120" height="120" class="pull-left" alt="sample-image" src="https://media.licdn.com/dms/image/v2/D4D03AQH1IecBC4ku_w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1731099934480?e=1765411200&v=beta&t=JdsGmZepWRwYcoR78DulEdc29y4KKkxF6BSKRe4LteM"></a>
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum.Cras id urna. Morbi tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu posuere nunc justo tempus leo. Donec mattis, purus nec placerat bibendum, dui pede condimentum odio, ac blandit ante orci ut diam. Cras fringilla magna. Phasellus suscipit, leo a pharetra condimentum, lorem tellus eleifend magna, eget fringilla velit magna id neque posuere nunc justo tempus leo. </p>
 
                 <p>
