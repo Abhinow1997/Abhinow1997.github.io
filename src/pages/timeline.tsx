@@ -157,7 +157,7 @@ const TimelinePage: React.FC = () => {
                 █
               </span>
               <p ref={subHeaderRef} className="text-sm text-gray-500">
-                My commits over the years...
+                My commits
               </p>
             </header>
           </div>
@@ -224,22 +224,7 @@ const AnimatedDetails: React.FC<AnimatedDetailsProps> = ({ commit }) => {
     }
   }
 
-  const getScopeColor = (scope: string) => {
-    switch (scope) {
-      case "career":
-        return "emerald-400"
-      case "education":
-        return "yellow-400"
-      case "research":
-        return "orange-400"
-      case "root":
-        return "purple-400"
-      default:
-        return "blue-400"
-    }
-  }
-
-  const colorClass = getScopeColor(commit.scope)
+  const scope = commit.scope
 
   return (
     <details ref={detailsRef}>
@@ -247,7 +232,13 @@ const AnimatedDetails: React.FC<AnimatedDetailsProps> = ({ commit }) => {
         onClick={handleToggle}
         className={clsx(
           "grid cursor-pointer items-center gap-x-2 rounded px-3 py-2 transition-colors hover:bg-white/5 focus:outline-none focus-visible:ring-1 md:grid-cols-[80px,10px,1fr,100px]",
-          `focus-visible:ring-${colorClass}`,
+          {
+            "focus-visible:ring-emerald-400": scope === "career",
+            "focus-visible:ring-yellow-400": scope === "education",
+            "focus-visible:ring-orange-400": scope === "research",
+            "focus-visible:ring-purple-400": scope === "root",
+            "focus-visible:ring-blue-400": scope !== "career" && scope !== "education" && scope !== "research" && scope !== "root",
+          },
           "grid-cols-[80px,10px,1fr]"
         )}
       >
@@ -257,14 +248,29 @@ const AnimatedDetails: React.FC<AnimatedDetailsProps> = ({ commit }) => {
         <span
           className={clsx(
             "relative shrink-0 self-start text-lg leading-none",
-            `text-${colorClass}`
+            {
+              "text-emerald-400": scope === "career",
+              "text-yellow-400": scope === "education",
+              "text-orange-400": scope === "research",
+              "text-purple-400": scope === "root",
+              "text-blue-400": scope !== "career" && scope !== "education" && scope !== "research" && scope !== "root",
+            }
           )}
         >
           ∗
         </span>
         <span className="flex flex-col items-start md:flex-row md:gap-2">
           <span
-            className={clsx("shrink-0 font-semibold", `text-${colorClass}`)}
+            className={clsx(
+              "shrink-0 font-semibold",
+              {
+                "text-emerald-400": scope === "career",
+                "text-yellow-400": scope === "education",
+                "text-orange-400": scope === "research",
+                "text-purple-400": scope === "root",
+                "text-blue-400": scope !== "career" && scope !== "education" && scope !== "research" && scope !== "root",
+              }
+            )}
           >
             {commit.type} ({commit.scope}):
           </span>
