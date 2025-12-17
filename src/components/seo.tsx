@@ -53,6 +53,7 @@ const SEO: React.FC<SEOProps> = ({
   `)
 
   const metaDescription = description || site.siteMetadata.description
+  const siteUrl = "https://abhinow1997.github.io"
 
   const metaTags: MetaTag[] = [
     {
@@ -65,7 +66,7 @@ const SEO: React.FC<SEOProps> = ({
     },
     {
       property: `og:url`,
-      content: `https://aashutosh.dev`,
+      content: siteUrl,
     },
     {
       property: `og:description`,
@@ -81,11 +82,11 @@ const SEO: React.FC<SEOProps> = ({
     },
     {
       name: `twitter:card`,
-      content: `summary`,
+      content: `summary_large_image`,
     },
     {
       property: `twitter:url`,
-      content: `https://aashutosh.dev`,
+      content: siteUrl,
     },
     {
       name: `twitter:creator`,

@@ -33,39 +33,55 @@ const WorkPage: React.FC = () => {
   return (
     <>
       <SEO title="Projects" />
-      <div className="my-8 flex justify-center text-center">
-        <GitHubCalendar
-          username="aashutoshrathi"
-          fontSize={16}
-          blockSize={14}
-          hideColorLegend
-          hideTotalCount
-          transformData={(data) => {
-            if (monthsToShow < 12) {
-              const today = new Date()
-              const cutoffDate = new Date()
-              cutoffDate.setMonth(cutoffDate.getMonth() - monthsToShow)
-
-              // Find the Sunday on or before the cutoff date
-              const startSunday = new Date(cutoffDate)
-              startSunday.setDate(cutoffDate.getDate() - cutoffDate.getDay())
-
-              // Find the Saturday after today (end of current week)
-              const endSaturday = new Date(today)
-              endSaturday.setDate(today.getDate() + (6 - today.getDay()))
-
-              return data.filter((day) => {
-                const date = new Date(day.date)
-                return date >= startSunday && date <= endSaturday
-              })
-            }
-            return data
-          }}
-        >
-          <ReactTooltip delayShow={10} className="custom-tooltip" />
-        </GitHubCalendar>
+      
+      {/* Black Background - Matching Homepage */}
+      <div className="fixed inset-0 -z-10 bg-black">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]"></div>
       </div>
-      <Projects />
+
+      <div className="min-h-[calc(100vh-216px)] px-4 py-8">
+        {/* GitHub Contribution Calendar Section */}
+        <div className="mb-12">
+          <h2 className="mb-4 text-center text-2xl font-bold text-emerald-400">
+            GitHub Activity
+          </h2>
+          <div className="flex justify-center">
+            <GitHubCalendar
+              username="Abhinow1997"
+              fontSize={16}
+              blockSize={14}
+              hideColorLegend
+              hideTotalCount
+              transformData={(data) => {
+                if (monthsToShow < 12) {
+                  const today = new Date()
+                  const cutoffDate = new Date()
+                  cutoffDate.setMonth(cutoffDate.getMonth() - monthsToShow)
+
+                  // Find the Sunday on or before the cutoff date
+                  const startSunday = new Date(cutoffDate)
+                  startSunday.setDate(cutoffDate.getDate() - cutoffDate.getDay())
+
+                  // Find the Saturday after today (end of current week)
+                  const endSaturday = new Date(today)
+                  endSaturday.setDate(today.getDate() + (6 - today.getDay()))
+
+                  return data.filter((day) => {
+                    const date = new Date(day.date)
+                    return date >= startSunday && date <= endSaturday
+                  })
+                }
+                return data
+              }}
+            >
+              <ReactTooltip delayShow={10} className="custom-tooltip" />
+            </GitHubCalendar>
+          </div>
+        </div>
+
+        {/* Projects Section */}
+        <Projects />
+      </div>
     </>
   )
 }

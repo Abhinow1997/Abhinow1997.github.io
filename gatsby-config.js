@@ -18,19 +18,23 @@ const cspDirectives = [
 module.exports = {
   siteMetadata: {
     title: `abhinow.dev`,
-    description: `software engineer by profession, in it for the plot, baking code into stories. writing nibbles and open to quibbles on tech, life and everything in between.`,
+    author: `AbhinavGangurde`,
+    coverImage: `/cover.png`,
+    description: `Data Engineer | AI Engineer | Software Engineer. Master's student at Northeastern University building data pipelines and AI solutions.`,
     navigationString: `abhinow.dev | `,
-    author: `@AashutoshRathi`,
-    coverImage: `https://files.abhinow.dev/pale_blue_dot.jpg`,
     social: [
       {
-        name: `X`,
-        url: `https://x.com/AashutoshRathi`,
+        name: `LinkedIn`,
+        url: `https://www.linkedin.com/in/abhinav-gangurde/`,
       },
       {
         name: `GitHub`,
-        url: `https://github.com/aashutoshrathi`,
+        url: `https://github.com/Abhinow1997`,
       },
+      {
+        name: `Instagram`,
+        url: `https://www.instagram.com/__abhi.now__/`
+      }
     ],
   },
   plugins: [
@@ -83,27 +87,13 @@ module.exports = {
     `gatsby-plugin-postcss`,
     `gatsby-plugin-react-helmet`,
     {
-      resolve: `gatsby-plugin-google-gtag`,
-      options: {
-        trackingIds: ["UA-37968445-2"],
-        gtagConfig: {
-          anonymize_ip: true,
-          cookie_expires: 0,
-        },
-        pluginConfig: {
-          head: true,
-          respectDNT: true,
-        },
-      },
-    },
-    {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Aashutosh Rathi`,
-        short_name: `abhinow.dev`,
+        name: `Abhinav - Data Engineer`,
+        short_name: `Abhinav`,
         start_url: `/`,
-        background_color: `#252525`,
-        theme_color: `#343b3f`,
+        background_color: `#000000`,  
+        theme_color: `#10b981`,
         display: `minimal-ui`,
         icon: `src/images/square.png`,
       },

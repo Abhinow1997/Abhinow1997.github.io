@@ -66,7 +66,7 @@ const commits = [
     details: [
       "+ Published research paper on IoT-based smart garbage monitoring systems",
       "+ Sensor Data Collection",
-      "+ Intergrated Ultrasonic sensor and Microcontroller"
+      "+ Intergrated Ultrasonic sensor and Microcontroller",
     ],
     date: "2019",
   },
@@ -141,22 +141,23 @@ const TimelinePage: React.FC = () => {
     <>
       <SEO title="About" />
 
-      {/* Black Background - Matching Homepage */}
       <div className="fixed inset-0 -z-10 bg-black">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]"></div>
       </div>
 
-      <div className="text-gray-300 min-h-[calc(100vh-216px)] p-4 font-mono sm:p-8">
+      <div className="min-h-[calc(100vh-216px)] p-4 font-mono text-gray-300 sm:p-8">
         <div className="mx-auto max-w-6xl">
           <div className="mb-8">
             <header>
               <h2
                 ref={headerRef}
-                className="text-lg h-7 inline-block font-bold text-emerald-400 mb-2"
+                className="mb-2 inline-block h-7 text-lg font-bold text-emerald-400"
               />
-              <span ref={cursorRef} className="text-emerald-400">█</span>
-              <p ref={subHeaderRef} className="text-gray-500 text-sm">
-                My journey in commits
+              <span ref={cursorRef} className="text-emerald-400">
+                █
+              </span>
+              <p ref={subHeaderRef} className="text-sm text-gray-500">
+                My commits over the years...
               </p>
             </header>
           </div>
@@ -223,66 +224,71 @@ const AnimatedDetails: React.FC<AnimatedDetailsProps> = ({ commit }) => {
     }
   }
 
+  const getScopeColor = (scope: string) => {
+    switch (scope) {
+      case "career":
+        return "emerald-400"
+      case "education":
+        return "yellow-400"
+      case "research":
+        return "orange-400"
+      case "root":
+        return "purple-400"
+      default:
+        return "blue-400"
+    }
+  }
+
+  const colorClass = getScopeColor(commit.scope)
+
   return (
     <details ref={detailsRef}>
       <summary
         onClick={handleToggle}
         className={clsx(
-          "grid focus:outline-none focus-visible:ring-1 md:grid-cols-[80px,10px,1fr,100px] grid-cols-[80px,10px,1fr] rounded cursor-pointer items-center gap-x-2 py-2 px-3 transition-colors hover:bg-white/5",
-          {
-            "focus-visible:ring-emerald-400": commit.scope === "career",
-            "focus-visible:ring-yellow-400": commit.scope === "education",
-            "focus-visible:ring-orange-400": commit.scope === "research",
-            "focus-visible:ring-blue-400": commit.scope === "fix",
-            "focus-visible:ring-purple-400": commit.scope === "root",
-          }
+          "grid cursor-pointer items-center gap-x-2 rounded px-3 py-2 transition-colors hover:bg-white/5 focus:outline-none focus-visible:ring-1 md:grid-cols-[80px,10px,1fr,100px]",
+          `focus-visible:ring-${colorClass}`,
+          "grid-cols-[80px,10px,1fr]"
         )}
       >
-        <span className="text-gray-500 w-14 shrink-0 text-xs sm:w-20 self-start md:self-auto md:mt-0 mt-1 sm:text-sm">
+        <span className="mt-1 w-14 shrink-0 self-start text-xs text-gray-500 sm:w-20 sm:text-sm md:mt-0 md:self-auto">
           {commit.hash}
         </span>
         <span
-          className={clsx("relative text-lg shrink-0 leading-none self-start", {
-            "text-emerald-400": commit.scope === "career",
-            "text-yellow-400": commit.scope === "education",
-            "text-orange-400": commit.scope === "research",
-            "text-blue-400": commit.scope === "fix",
-            "text-purple-400": commit.scope === "root",
-          })}
+          className={clsx(
+            "relative shrink-0 self-start text-lg leading-none",
+            `text-${colorClass}`
+          )}
         >
           ∗
         </span>
-        <span className="flex items-start md:flex-row flex-col md:gap-2">
+        <span className="flex flex-col items-start md:flex-row md:gap-2">
           <span
-            className={clsx("shrink-0 font-semibold", {
-              "text-emerald-400": commit.scope === "career",
-              "text-yellow-400": commit.scope === "education",
-              "text-orange-400": commit.scope === "research",
-              "text-blue-400": commit.scope === "fix",
-              "text-purple-400": commit.scope === "root",
-            })}
+            className={clsx("shrink-0 font-semibold", `text-${colorClass}`)}
           >
             {commit.type} ({commit.scope}):
           </span>
           <span className="text-gray-300">{commit.message}</span>
         </span>
-        <span className="text-gray-500 shrink-0 text-xs col-start-3 md:mt-0 mt-1 md:col-start-4 md:text-right">
+        <span className="col-start-3 mt-1 shrink-0 text-xs text-gray-500 md:col-start-4 md:mt-0 md:text-right">
           {commit.date}
         </span>
       </summary>
 
       <div
         ref={contentRef}
-        className="grid gap-2 pt-1 pb-2 grid-cols-[80px,10px,1fr] md:grid-cols-[80px,10px,1fr,100px] overflow-hidden"
+        className="grid gap-2 overflow-hidden pb-2 pt-1 md:grid-cols-[80px,10px,1fr,100px]"
+        style={{ gridTemplateColumns: "80px 10px 1fr" }}
       >
-        <div className="col-start-3 relative">
+        <div className="col-start-3">
           {commit.details.map((detail) => (
             <p
               key={detail}
               className={clsx("text-sm", {
                 "text-emerald-400": detail.startsWith("+"),
                 "text-red-400": detail.startsWith("-"),
-                "text-gray-400": !detail.startsWith("+") && !detail.startsWith("-"),
+                "text-gray-400":
+                  !detail.startsWith("+") && !detail.startsWith("-"),
               })}
             >
               {detail}

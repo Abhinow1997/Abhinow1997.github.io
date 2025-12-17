@@ -8,6 +8,7 @@ import { IconType } from "react-icons"
 import {
   FaDev,
   FaGithub,
+  FaInstagram,
   FaLinkedin,
   FaStackOverflow,
   FaTwitter,
@@ -17,8 +18,8 @@ const Footer: React.FC = () => {
   const location = useLocation()
 
   const emotions = ["love", "sweat", "tears"]
-  const agents = ["code", "gemini", "claude"]
-  const drinks = ["coffee", "chhaas"]
+  const agents = ["code", "chatgpt", "claude"]
+  const drinks = ["coffee", "chaas"]
 
   const socialsRef = useRef<HTMLDivElement | null>(null)
   const builtWithRef = useRef<HTMLParagraphElement | null>(null)
@@ -51,27 +52,17 @@ const Footer: React.FC = () => {
         className="text-center flex items-center justify-center gap-2"
       >
         <SocialIcon
-          link="https://github.com/aashutoshrathi"
+          link="https://github.com/Abhinow1997"
           title="GitHub"
           icon={FaGithub}
         />
         <SocialIcon
-          link="https://x.com/AashutoshRathi"
-          title="X"
-          icon={FaTwitter}
+          link="https://www.instagram.com/__abhi.now__"
+          title="Instagram"
+          icon={FaInstagram}
         />
         <SocialIcon
-          link="https://stackoverflow.com/users/7326407/aashutosh-rathi?tab=profile"
-          title="Stack Overflow"
-          icon={FaStackOverflow}
-        />
-        <SocialIcon
-          link="https://dev.to/aashutoshrathi"
-          title="Dev"
-          icon={FaDev}
-        />
-        <SocialIcon
-          link="https://linkedin.com/in/aashutoshrathi"
+          link="https://www.linkedin.com/in/abhinav-gangurde/"
           title="LinkedIn"
           icon={FaLinkedin}
         />
