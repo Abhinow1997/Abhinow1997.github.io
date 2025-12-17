@@ -53,29 +53,36 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ data }) => {
   return (
     <>
       <SEO title="Blog" />
-      <div className="py-8">
-        <h1 ref={headingRef} className="mb-8 text-4xl font-bold">
-          Blog
-        </h1>
-        <div ref={postsRef} className="space-y-8">
-          {data.allMdx.nodes.map((post) => (
-            <article key={post.id}>
-              <header>
-                <h2>
-                  <Link
-                    to={`/blog/${post.frontmatter.slug}`}
-                    className="relative mb-1 text-2xl font-bold inline font-sans text-blue-600 no-underline transition-colors duration-200 before:absolute before:bottom-0 before:h-px before:w-0 before:bg-current before:transition-all before:content-[''] hover:text-blue-700 hover:no-underline hover:before:w-full focus:outline-none focus-visible:before:w-full dark:text-blue-400 dark:hover:text-blue-300"
-                  >
-                    {post.frontmatter.title}
-                  </Link>
-                </h2>
-                <small className="opacity-80">{post.frontmatter.date}</small>
-              </header>
-              <section>
-                <p className="mt-2">{post.frontmatter.description}</p>
-              </section>
-            </article>
-          ))}
+      
+      <div className="fixed inset-0 -z-10 bg-black">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]"></div>
+      </div>
+
+      <div className="py-8 px-4">
+        <div className="mx-auto max-w-4xl">
+          <h1 ref={headingRef} className="mb-8 text-4xl font-bold text-emerald-400">
+            Blog
+          </h1>
+          <div ref={postsRef} className="space-y-8">
+            {data.allMdx.nodes.map((post) => (
+              <article key={post.id}>
+                <header>
+                  <h2>
+                    <Link
+                      to={`/blog/${post.frontmatter.slug}`}
+                      className="relative mb-1 text-2xl font-bold inline font-sans text-emerald-400 no-underline transition-colors duration-200 before:absolute before:bottom-0 before:h-px before:w-0 before:bg-current before:transition-all before:content-[''] hover:text-emerald-300 hover:no-underline hover:before:w-full focus:outline-none focus-visible:before:w-full"
+                    >
+                      {post.frontmatter.title}
+                    </Link>
+                  </h2>
+                  <small className="text-gray-500">{post.frontmatter.date}</small>
+                </header>
+                <section>
+                  <p className="mt-2 text-gray-400">{post.frontmatter.description}</p>
+                </section>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </>

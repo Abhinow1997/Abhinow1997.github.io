@@ -17,7 +17,6 @@ const IndexPage: React.FC = () => {
 
   const isDesktop = useMediaQuery("(min-width: 768px)")
 
-  // Rotating roles with emojis
   const roles = [
     { title: "Data Engineer", emoji: "📊", color: "text-emerald-400" },
     { title: "AI Engineer", emoji: "🤖", color: "text-purple-400" },
@@ -65,7 +64,6 @@ const IndexPage: React.FC = () => {
       })
     }
 
-    // Wave animation
     if (waveRef.current) {
       const waveElement = waveRef.current
       const waveTimeline = gsap.timeline({ paused: true, repeat: -1 })
