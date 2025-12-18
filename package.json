@@ -58,6 +58,7 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
+    "postinstall": "npm rebuild @parcel/watcher || true",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "npm run develop",
