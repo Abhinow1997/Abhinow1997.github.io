@@ -1,9 +1,9 @@
-name: Deploy to GitHub Pages
+name: Deploy Portfolio
 
 on:
   push:
     branches:
-      - master  
+      - main
 
 permissions:
   contents: write
