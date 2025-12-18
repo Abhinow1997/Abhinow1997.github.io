@@ -25,7 +25,7 @@
 }
 
 [data-theme="dark"] {
-  @apply bg-slate-900;
+  @apply bg-black; /* Changed from bg-slate-900 to bg-black */
 
   ::-webkit-scrollbar {
     @apply h-2 w-2;
@@ -47,7 +47,7 @@
 @layer base {
   html,
   body {
-    @apply m-0 box-border w-full overflow-x-hidden p-0 text-slate-900 dark:text-slate-50;
+    @apply m-0 box-border w-full overflow-x-hidden p-0 text-slate-900 dark:text-slate-50 dark:bg-black;
     font-family: "Google Sans Flex", sans-serif;
   }
 

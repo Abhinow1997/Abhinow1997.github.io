@@ -1,73 +1,36 @@
-const dotenv = require("dotenv")
 const path = require("path")
-
-dotenv.config({
-  path: `.env`,
-})
-
-const cspDirectives = [
-  "script-src 'self' 'unsafe-inline' *.cloudfront.net unpkg.com www.google-analytics.com www.googletagmanager.com",
-  "style-src 'self' 'unsafe-inline' fonts.googleapis.com fonts.gstatic.com",
-  "img-src 'self' data: https:",
-  "font-src 'self' data: fonts.googleapis.com fonts.gstatic.com",
-  "worker-src 'self' blob: data:",
-  "connect-src 'self' 'unsafe-inline' api.abhinow.dev github-contributions-api.jogruber.de www.google-analytics.com stats.g.doubleclick.net www.googletagmanager.com",
-  "object-src 'none'",
-]
 
 module.exports = {
   siteMetadata: {
     title: `abhinow.dev`,
-    author: `AbhinavGangurde`,
+    author: `Abhinav Gangurde <gangurde.a@northeastern.edu>`,
     coverImage: `/cover.png`,
-    description: `Data Engineer | AI Engineer | Software Engineer. Master's student at Northeastern University building data pipelines and AI solutions.`,
     navigationString: `abhinow.dev | `,
-    social: [
-      {
-        name: `LinkedIn`,
-        url: `https://www.linkedin.com/in/abhinav-gangurde/`,
-      },
-      {
-        name: `GitHub`,
-        url: `https://github.com/Abhinow1997`,
-      },
-      {
-        name: `Instagram`,
-        url: `https://www.instagram.com/__abhi.now__/`
-      }
-    ],
+    siteUrl: `https://abhinow1997.github.io`,
+    description: `Data Engineer | AI Engineer | Software Engineer. Master's student at Northeastern University building data pipelines and AI solutions.`,
+    social: {
+      linkedin: `https://www.linkedin.com/in/abhinav-gangurde/`,
+      github: `https://github.com/Abhinow1997`,
+      instagram: `https://www.instagram.com/__abhi.now__/`,
+    },
   },
   plugins: [
+    `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     {
-      resolve: `gatsby-plugin-layout`,
-      options: {
-        component: require.resolve(`./src/components/layout.tsx`),
-      },
-    },
-    {
-      resolve: "gatsby-plugin-alias-imports",
-      options: {
-        alias: {
-          "@components": path.resolve(__dirname, "./src/components"),
-          "@utils": path.resolve(__dirname, "./src/utils"),
-        },
-      },
-    },
-    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`,
+        path: path.join(__dirname, `src`, `images`),
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `blog`,
-        path: `${__dirname}/content/blog`,
+        path: path.join(__dirname, `content`, `blog`),
       },
     },
     {
@@ -84,34 +47,31 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-postcss`,
-    `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Abhinav - Data Engineer`,
+        name: `Abhinav Gangurde - Portfolio`,
         short_name: `Abhinav`,
         start_url: `/`,
-        background_color: `#000000`,  
+        background_color: `#000000`,
         theme_color: `#10b981`,
         display: `minimal-ui`,
         icon: `src/images/square.png`,
       },
     },
+    `gatsby-plugin-postcss`,
     {
-      resolve: "gatsby-plugin-netlify",
+      resolve: `gatsby-plugin-layout`,
       options: {
-        headers: {
-          "/*": [
-            `Content-Security-Policy: ${cspDirectives.join(";")}`,
-            "Feature-Policy: sync-xhr 'self'",
-            "X-Frame-Options: DENY",
-            "Strict-Transport-Security: max-age=31536000; includeSubDomains; preload",
-            "Upgrade-Insecure-Requests: 1",
-            "X-XSS-Protection: 1; mode=block",
-            "X-Content-Type-Options: nosniff",
-            "Referrer-Policy: no-referrer-when-downgrade",
-          ],
+        component: require.resolve(`./src/components/layout.tsx`),
+      },
+    },
+    {
+      resolve: `gatsby-plugin-alias-imports`,
+      options: {
+        alias: {
+          "@components": path.resolve(__dirname, `src/components`),
+          "@utils": path.resolve(__dirname, `src/utils`),
         },
       },
     },

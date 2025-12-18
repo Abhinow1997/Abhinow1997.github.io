@@ -21,11 +21,6 @@ const sections: Array<{ title: string; items: Item[] }> = [
         link: "https://code.visualstudio.com/",
       },
       {
-        name: "PyCharm",
-        description: "IDE for complex Python projects and data engineering workflows",
-        link: "https://www.jetbrains.com/pycharm/",
-      },
-      {
         name: "Git",
         description: "Version control for all projects and collaboration",
         link: "https://git-scm.com/",
@@ -63,30 +58,6 @@ const sections: Array<{ title: string; items: Item[] }> = [
     ],
   },
   {
-    title: "🤖 AI/ML Tools",
-    items: [
-      {
-        name: "Python",
-        description: "Primary language for data science and ML development",
-        link: "https://www.python.org/",
-      },
-      {
-        name: "Jupyter Notebooks",
-        description: "Interactive development for data analysis and experimentation",
-        link: "https://jupyter.org/",
-      },
-      {
-        name: "TensorFlow & PyTorch",
-        description: "Deep learning frameworks for model development",
-      },
-      {
-        name: "scikit-learn",
-        description: "Machine learning library for classical ML algorithms",
-        link: "https://scikit-learn.org/",
-      },
-    ],
-  },
-  {
     title: "☁️ Cloud & DevOps",
     items: [
       {
@@ -120,14 +91,9 @@ const sections: Array<{ title: string; items: Item[] }> = [
         link: "https://www.notion.so/",
       },
       {
-        name: "Obsidian",
-        description: "Note-taking and personal knowledge management",
-        link: "https://obsidian.md/",
-      },
-      {
-        name: "Slack",
+        name: "Teams",
         description: "Team communication and collaboration",
-        link: "https://slack.com/",
+        link: "https://teams.com/",
       },
     ],
   },
@@ -135,13 +101,9 @@ const sections: Array<{ title: string; items: Item[] }> = [
     title: "🖥️ Hardware",
     items: [
       {
-        name: "Windows Laptop",
-        description: "Development machines for coding and data work",
-      },
-      {
-        name: "Dual Monitor Setup",
-        description: "Extended workspace for productivity",
-      },
+        name: "Predator Helios 300",
+        description: "Development machines for coding and work",
+      }
     ],
   },
 ]

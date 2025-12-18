@@ -66,7 +66,7 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
       />
-      <article className="py-8">
+      <article className="bg-black min-h-screen text-white prose prose-invert max-w-none">
         <div ref={backRef} className="mb-8">
           <Link
             to="/blog"
