@@ -188,7 +188,7 @@ const IndexPage: React.FC = () => {
   
         
             <OutboundLink
-              href="https://your-resume-url.com/resume.pdf"
+              href="https://drive.google.com/file/d/1D0RQ3EOK2_y-hOspw3t5eveZvWbTH-cd/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-3 text-gray-300 no-underline transition-colors hover:text-emerald-400 hover:no-underline"
@@ -197,7 +197,7 @@ const IndexPage: React.FC = () => {
               <span className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-400/10 text-xl transition-colors group-hover:bg-emerald-400/20">
                 📄
               </span>
-              <span className="text-base font-medium">Resume</span>
+              <span className="text-base font-medium">View Resume</span>
               <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
