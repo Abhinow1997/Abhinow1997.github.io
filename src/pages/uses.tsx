@@ -102,7 +102,11 @@ const sections: Array<{ title: string; items: Item[] }> = [
     items: [
       {
         name: "Predator Helios 300",
-        description: "Development machines for coding and work",
+        description: "Primary development laptop for coding and work",
+      },
+      {
+        name: "Dual Monitor Setup",
+        description: "Extended display workspace for multitasking",
       }
     ],
   },

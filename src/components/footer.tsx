@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
 
   const emotions = ["love", "sweat", "tears"]
   const agents = ["code", "chatgpt", "claude"]
-  const drinks = ["coffee", "laasi"]
+  const drinks = ["coffee", "laasi", "chai"]
 
   const socialsRef = useRef<HTMLDivElement | null>(null)
   const builtWithRef = useRef<HTMLParagraphElement | null>(null)
