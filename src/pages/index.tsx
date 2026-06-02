@@ -57,6 +57,19 @@ const IndexPage: React.FC = () => {
     return () => clearInterval(interval)
   }, [])
 
+  // Snap all images to correct opacity/scale instantly (no animation)
+  const snapImagesToState = (activeIndex: number) => {
+    imageRefs.current.forEach((img, index) => {
+      if (img) {
+        gsap.killTweensOf(img)
+        gsap.set(img, {
+          opacity: index === activeIndex ? 1 : 0,
+          scale: index === activeIndex ? 1 : 0.9,
+        })
+      }
+    })
+  }
+
   // Animate image transitions
   useEffect(() => {
     imageRefs.current.forEach((img, index) => {
@@ -76,7 +89,6 @@ const IndexPage: React.FC = () => {
             }
           )
         } else {
-          // Add blur during exit
           img.setAttribute('data-blur', 'true')
           gsap.to(img, {
             scale: 0.9,
@@ -87,6 +99,17 @@ const IndexPage: React.FC = () => {
         }
       }
     })
+  }, [currentImageIndex])
+
+  // Fix stacking flash when returning to tab
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        snapImagesToState(currentImageIndex)
+      }
+    }
+    document.addEventListener("visibilitychange", handleVisibilityChange)
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange)
   }, [currentImageIndex])
 
   useGSAP(() => {
