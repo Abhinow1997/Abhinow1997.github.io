@@ -5,8 +5,8 @@ import { OutboundLink } from "gatsby-plugin-google-gtag"
 import { StaticImage } from "gatsby-plugin-image"
 import gsap from "gsap"
 import { useMediaQuery } from "usehooks-ts"
-import { SEO } from "@components"
-import { mediumHaptic } from "@utils"
+import { SEO, Timeline } from "@components"
+import { lightHaptic, mediumHaptic } from "@utils"
 
 const IndexPage: React.FC = () => {
   const imgWrapperRef = useRef<HTMLDivElement | null>(null)
@@ -418,7 +418,36 @@ const IndexPage: React.FC = () => {
             </div>
           </div>
         </div>
+
+        <a
+          href="#about"
+          onClick={lightHaptic}
+          aria-label="Scroll to my commits"
+          className="absolute bottom-0 left-1/2 hidden -translate-x-1/2 text-gray-500 no-underline transition-colors hover:text-emerald-400 hover:no-underline md:block"
+        >
+          <svg
+            className="h-6 w-6 animate-bounce"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 14l-7 7m0 0l-7-7"
+            />
+          </svg>
+        </a>
       </main>
+
+      {/* About — same commit log as the About page, revealed on scroll */}
+      <section
+        id="about"
+        className="scroll-mt-8 py-16 font-mono text-gray-300 md:py-24"
+      >
+        <Timeline />
+      </section>
     </>
   )
 }

@@ -1,11 +1,9 @@
-import React, { useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 import { useGSAP } from "@gsap/react"
 import clsx from "clsx"
 import gsap, { SteppedEase } from "gsap"
 import TextPlugin from "gsap/TextPlugin"
-
-import { SEO } from "@components"
 
 gsap.registerPlugin(TextPlugin)
 
@@ -95,13 +93,50 @@ const commits = [
   },
 ] as const
 
-const TimelinePage: React.FC = () => {
+const Timeline: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement | null>(null)
   const headerRef = useRef<HTMLHeadingElement | null>(null)
   const cursorRef = useRef<HTMLSpanElement | null>(null)
   const subHeaderRef = useRef<HTMLParagraphElement | null>(null)
   const commitsRef = useRef<HTMLDivElement | null>(null)
 
+  // The timeline sits below the fold, so hold the intro back until it is
+  // scrolled into view.
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const container = containerRef.current
+
+    if (!container) return
+
+    if (typeof IntersectionObserver === "undefined") {
+      setIsVisible(true)
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setIsVisible(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: "0px 0px -20% 0px" }
+    )
+
+    observer.observe(container)
+
+    return () => observer.disconnect()
+  }, [])
+
   useGSAP(() => {
+    if (commitsRef.current) {
+      gsap.set(commitsRef.current.children, { y: -12, opacity: 0 })
+    }
+    gsap.set([cursorRef.current, subHeaderRef.current], { autoAlpha: 0 })
+
+    if (!isVisible) return
+
     const tl = gsap.timeline()
 
     tl.to(headerRef.current, {
@@ -116,60 +151,54 @@ const TimelinePage: React.FC = () => {
         { autoAlpha: 0, x: -20 },
         { autoAlpha: 1, duration: 1, repeat: -1, ease: SteppedEase.config(1) }
       )
-      .from(
+      .fromTo(
         subHeaderRef.current,
         {
           y: -10,
-          opacity: 0,
+          autoAlpha: 0,
+        },
+        {
+          y: 0,
+          autoAlpha: 1,
           ease: "power1.out",
         },
         "<0.1"
       )
 
     if (commitsRef.current) {
-      tl.from(commitsRef.current.children, {
-        y: -12,
-        opacity: 0,
+      tl.to(commitsRef.current.children, {
+        y: 0,
+        opacity: 1,
         stagger: 0.04,
         ease: "power3.out",
         duration: 0.2,
       })
     }
-  }, [])
+  }, [isVisible])
 
   return (
-    <>
-      <SEO title="About" />
-
-      <div className="fixed inset-0 -z-10 bg-black">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]"></div>
+    <div ref={containerRef} className="mx-auto max-w-6xl">
+      <div className="mb-8">
+        <header>
+          <h2
+            ref={headerRef}
+            className="mb-2 inline-block h-7 text-lg font-bold text-emerald-400"
+          />
+          <span ref={cursorRef} className="text-emerald-400">
+            █
+          </span>
+          <p ref={subHeaderRef} className="text-sm text-gray-500">
+            My commits
+          </p>
+        </header>
       </div>
 
-      <div className="min-h-[calc(100vh-216px)] p-4 font-mono text-gray-300 sm:p-8">
-        <div className="mx-auto max-w-6xl">
-          <div className="mb-8">
-            <header>
-              <h2
-                ref={headerRef}
-                className="mb-2 inline-block h-7 text-lg font-bold text-emerald-400"
-              />
-              <span ref={cursorRef} className="text-emerald-400">
-                █
-              </span>
-              <p ref={subHeaderRef} className="text-sm text-gray-500">
-                My commits
-              </p>
-            </header>
-          </div>
-
-          <div ref={commitsRef} className="grid gap-2">
-            {commits.map((commit) => (
-              <AnimatedDetails key={commit.hash} commit={commit} />
-            ))}
-          </div>
-        </div>
+      <div ref={commitsRef} className="grid gap-2">
+        {commits.map((commit) => (
+          <AnimatedDetails key={commit.hash} commit={commit} />
+        ))}
       </div>
-    </>
+    </div>
   )
 }
 
@@ -237,7 +266,11 @@ const AnimatedDetails: React.FC<AnimatedDetailsProps> = ({ commit }) => {
             "focus-visible:ring-yellow-400": scope === "education",
             "focus-visible:ring-orange-400": scope === "research",
             "focus-visible:ring-purple-400": scope === "root",
-            "focus-visible:ring-blue-400": scope !== "career" && scope !== "education" && scope !== "research" && scope !== "root",
+            "focus-visible:ring-blue-400":
+              scope !== "career" &&
+              scope !== "education" &&
+              scope !== "research" &&
+              scope !== "root",
           },
           "grid-cols-[80px,10px,1fr]"
         )}
@@ -246,31 +279,33 @@ const AnimatedDetails: React.FC<AnimatedDetailsProps> = ({ commit }) => {
           {commit.hash}
         </span>
         <span
-          className={clsx(
-            "relative shrink-0 self-start text-lg leading-none",
-            {
-              "text-emerald-400": scope === "career",
-              "text-yellow-400": scope === "education",
-              "text-orange-400": scope === "research",
-              "text-purple-400": scope === "root",
-              "text-blue-400": scope !== "career" && scope !== "education" && scope !== "research" && scope !== "root",
-            }
-          )}
+          className={clsx("relative shrink-0 self-start text-lg leading-none", {
+            "text-emerald-400": scope === "career",
+            "text-yellow-400": scope === "education",
+            "text-orange-400": scope === "research",
+            "text-purple-400": scope === "root",
+            "text-blue-400":
+              scope !== "career" &&
+              scope !== "education" &&
+              scope !== "research" &&
+              scope !== "root",
+          })}
         >
           ∗
         </span>
         <span className="flex flex-col items-start md:flex-row md:gap-2">
           <span
-            className={clsx(
-              "shrink-0 font-semibold",
-              {
-                "text-emerald-400": scope === "career",
-                "text-yellow-400": scope === "education",
-                "text-orange-400": scope === "research",
-                "text-purple-400": scope === "root",
-                "text-blue-400": scope !== "career" && scope !== "education" && scope !== "research" && scope !== "root",
-              }
-            )}
+            className={clsx("shrink-0 font-semibold", {
+              "text-emerald-400": scope === "career",
+              "text-yellow-400": scope === "education",
+              "text-orange-400": scope === "research",
+              "text-purple-400": scope === "root",
+              "text-blue-400":
+                scope !== "career" &&
+                scope !== "education" &&
+                scope !== "research" &&
+                scope !== "root",
+            })}
           >
             {commit.type} ({commit.scope}):
           </span>
@@ -306,4 +341,4 @@ const AnimatedDetails: React.FC<AnimatedDetailsProps> = ({ commit }) => {
   )
 }
 
-export default TimelinePage
+export default Timeline
