@@ -441,7 +441,7 @@ const IndexPage: React.FC = () => {
         </a>
       </main>
 
-      {/* About — same commit log as the About page, revealed on scroll */}
+      {/* About — commit log of my journey, revealed on scroll */}
       <section
         id="about"
         className="scroll-mt-8 py-16 font-mono text-gray-300 md:py-24"

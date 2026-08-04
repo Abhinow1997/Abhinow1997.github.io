@@ -145,25 +145,33 @@ const Timeline: React.FC = () => {
       },
       duration: 1,
       ease: "none",
-    })
-      .fromTo(
-        cursorRef.current,
-        { autoAlpha: 0, x: -20 },
-        { autoAlpha: 1, duration: 1, repeat: -1, ease: SteppedEase.config(1) }
-      )
-      .fromTo(
-        subHeaderRef.current,
-        {
-          y: -10,
-          autoAlpha: 0,
-        },
-        {
-          y: 0,
-          autoAlpha: 1,
-          ease: "power1.out",
-        },
-        "<0.1"
-      )
+    }).fromTo(
+      subHeaderRef.current,
+      {
+        y: -10,
+        autoAlpha: 0,
+      },
+      {
+        y: 0,
+        autoAlpha: 1,
+        ease: "power1.out",
+      },
+      "+=0.1"
+    )
+
+    // The blink runs forever, so keep it off the main timeline — an infinitely
+    // repeating child would sit between the tweens appended after it.
+    gsap.fromTo(
+      cursorRef.current,
+      { autoAlpha: 0, x: -20 },
+      {
+        autoAlpha: 1,
+        duration: 1,
+        delay: 1,
+        repeat: -1,
+        ease: SteppedEase.config(1),
+      }
+    )
 
     if (commitsRef.current) {
       tl.to(commitsRef.current.children, {
