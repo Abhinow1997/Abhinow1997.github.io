@@ -55,13 +55,6 @@ const Header: React.FC = () => {
           className="flex flex-row flex-wrap items-center justify-center gap-4 px-2 sm:justify-end sm:gap-6"
         >
           <Link
-            to="/timeline"
-            className="relative inline font-sans text-blue-600 no-underline transition-colors duration-200 before:absolute before:bottom-0 before:h-px before:w-0 before:bg-current before:transition-all before:content-[''] hover:text-blue-700 hover:no-underline hover:before:w-full focus:outline-none focus-visible:before:w-full dark:text-blue-400 dark:hover:text-blue-300"
-            onClick={lightHaptic}
-          >
-            About
-          </Link>
-          <Link
             to="/blog"
             className="relative inline font-sans text-blue-600 no-underline transition-colors duration-200 before:absolute before:bottom-0 before:h-px before:w-0 before:bg-current before:transition-all before:content-[''] hover:text-blue-700 hover:no-underline hover:before:w-full focus:outline-none focus-visible:before:w-full dark:text-blue-400 dark:hover:text-blue-300"
             onClick={lightHaptic}
