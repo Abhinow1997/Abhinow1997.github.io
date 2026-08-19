@@ -45,9 +45,31 @@
 }
 
 @layer base {
+  html {
+    /* Eased anchor travel is handled in JS (see ScrollCue) rather than with
+       scroll-behavior: smooth, which would also animate Gatsby's scroll
+       restoration on every route change. */
+    scroll-padding-top: 5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   html,
   body {
-    @apply m-0 box-border w-full overflow-x-hidden p-0 text-slate-900 dark:text-slate-50 dark:bg-black;
+    @apply m-0 box-border w-full overflow-x-hidden p-0 text-slate-900 dark:bg-black dark:text-slate-50;
     font-family: "Google Sans Flex", sans-serif;
   }
 

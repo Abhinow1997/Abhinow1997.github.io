@@ -1,11 +1,18 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useRef, useState } from "react"
 
 import { useGSAP } from "@gsap/react"
 import clsx from "clsx"
 import gsap, { SteppedEase } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 import TextPlugin from "gsap/TextPlugin"
 
-gsap.registerPlugin(TextPlugin)
+gsap.registerPlugin(TextPlugin, ScrollTrigger)
+
+const HEADER_COMMAND = "$ git log --oneline --graph"
+
+const prefersReducedMotion = (): boolean =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
 const commits = [
   {
@@ -104,34 +111,38 @@ const Timeline: React.FC = () => {
   // scrolled into view.
   const [isVisible, setIsVisible] = useState(false)
 
-  useEffect(() => {
+  useGSAP(() => {
     const container = containerRef.current
 
     if (!container) return
 
-    if (typeof IntersectionObserver === "undefined") {
+    if (prefersReducedMotion()) {
       setIsVisible(true)
       return
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          setIsVisible(true)
-          observer.disconnect()
-        }
-      },
-      { rootMargin: "0px 0px -20% 0px" }
-    )
-
-    observer.observe(container)
-
-    return () => observer.disconnect()
+    ScrollTrigger.create({
+      trigger: container,
+      // Fire while the section is still rising into view so the type-out has
+      // already started by the time it settles.
+      start: "top 85%",
+      once: true,
+      onEnter: () => setIsVisible(true),
+    })
   }, [])
 
   useGSAP(() => {
+    if (prefersReducedMotion()) {
+      if (headerRef.current) headerRef.current.textContent = HEADER_COMMAND
+      gsap.set([cursorRef.current, subHeaderRef.current], { autoAlpha: 1 })
+      if (commitsRef.current) {
+        gsap.set(commitsRef.current.children, { y: 0, opacity: 1 })
+      }
+      return
+    }
+
     if (commitsRef.current) {
-      gsap.set(commitsRef.current.children, { y: -12, opacity: 0 })
+      gsap.set(commitsRef.current.children, { y: 16, opacity: 0 })
     }
     gsap.set([cursorRef.current, subHeaderRef.current], { autoAlpha: 0 })
 
@@ -141,9 +152,9 @@ const Timeline: React.FC = () => {
 
     tl.to(headerRef.current, {
       text: {
-        value: "$ git log --oneline --graph",
+        value: HEADER_COMMAND,
       },
-      duration: 1,
+      duration: 0.9,
       ease: "none",
     }).fromTo(
       subHeaderRef.current,
@@ -174,13 +185,19 @@ const Timeline: React.FC = () => {
     )
 
     if (commitsRef.current) {
-      tl.to(commitsRef.current.children, {
-        y: 0,
-        opacity: 1,
-        stagger: 0.04,
-        ease: "power3.out",
-        duration: 0.2,
-      })
+      // Rise with the scroll direction, slow enough to read as a fade rather
+      // than a flicker, and overlapping the sub-header so it stays one gesture.
+      tl.to(
+        commitsRef.current.children,
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.06,
+          ease: "power2.out",
+          duration: 0.5,
+        },
+        "-=0.15"
+      )
     }
   }, [isVisible])
 

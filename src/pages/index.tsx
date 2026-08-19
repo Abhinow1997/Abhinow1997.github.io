@@ -1,14 +1,21 @@
-import React, { useRef, useState, useEffect } from "react"
+import React, { useEffect, useRef, useState } from "react"
+
 import { useGSAP } from "@gsap/react"
 import { Link } from "gatsby"
 import { OutboundLink } from "gatsby-plugin-google-gtag"
 import { StaticImage } from "gatsby-plugin-image"
 import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { PiArrowSquareOut, PiFileText } from "react-icons/pi"
 import { useMediaQuery } from "usehooks-ts"
-import { SEO, Timeline } from "@components"
-import { lightHaptic, mediumHaptic } from "@utils"
+
+import { ScrollCue, SEO, Timeline } from "@components"
+import { mediumHaptic } from "@utils"
+
+gsap.registerPlugin(ScrollTrigger)
 
 const IndexPage: React.FC = () => {
+  const heroRef = useRef<HTMLElement | null>(null)
   const imgWrapperRef = useRef<HTMLDivElement | null>(null)
   const headingRef = useRef<HTMLHeadingElement | null>(null)
   const aboutRef = useRef<HTMLSection | null>(null)
@@ -28,7 +35,7 @@ const IndexPage: React.FC = () => {
   // Image names - update these with your actual image filenames
   const images = [
     "square.png",
-    "square2.png", 
+    "square2.png",
     "square3.png",
     "square4.png",
     "square5.png",
@@ -43,7 +50,7 @@ const IndexPage: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentRoleIndex((prev) => (prev + 1) % roles.length)
-    }, 2000) 
+    }, 2000)
 
     return () => clearInterval(interval)
   }, [])
@@ -75,8 +82,9 @@ const IndexPage: React.FC = () => {
     imageRefs.current.forEach((img, index) => {
       if (img) {
         if (index === currentImageIndex) {
-          img.removeAttribute('data-blur')
-          gsap.fromTo(img,
+          img.removeAttribute("data-blur")
+          gsap.fromTo(
+            img,
             {
               scale: 1.1,
               opacity: 0,
@@ -89,7 +97,7 @@ const IndexPage: React.FC = () => {
             }
           )
         } else {
-          img.setAttribute('data-blur', 'true')
+          img.setAttribute("data-blur", "true")
           gsap.to(img, {
             scale: 0.9,
             opacity: 0,
@@ -109,7 +117,8 @@ const IndexPage: React.FC = () => {
       }
     }
     document.addEventListener("visibilitychange", handleVisibilityChange)
-    return () => document.removeEventListener("visibilitychange", handleVisibilityChange)
+    return () =>
+      document.removeEventListener("visibilitychange", handleVisibilityChange)
   }, [currentImageIndex])
 
   useGSAP(() => {
@@ -148,7 +157,11 @@ const IndexPage: React.FC = () => {
 
       waveTimeline
         .to(waveElement, { rotation: 20, duration: 0.15, ease: "power1.inOut" })
-        .to(waveElement, { rotation: -20, duration: 0.15, ease: "power1.inOut" })
+        .to(waveElement, {
+          rotation: -20,
+          duration: 0.15,
+          ease: "power1.inOut",
+        })
         .to(waveElement, { rotation: 20, duration: 0.15, ease: "power1.inOut" })
         .to(waveElement, { rotation: 0, duration: 0.15, ease: "power1.inOut" })
 
@@ -169,6 +182,29 @@ const IndexPage: React.FC = () => {
     }
   }, [])
 
+  // Hand the hero off to the commit log as the page moves, so the two stacked
+  // screens read as one continuous space instead of two hard cuts.
+  useGSAP(() => {
+    if (
+      !heroRef.current ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return
+    }
+
+    gsap.to(heroRef.current, {
+      opacity: 0.15,
+      y: -48,
+      ease: "none",
+      scrollTrigger: {
+        trigger: heroRef.current,
+        start: "top top",
+        end: "bottom top",
+        scrub: 0.5,
+      },
+    })
+  }, [])
+
   // Animate role change
   useEffect(() => {
     if (roleRef.current) {
@@ -183,12 +219,15 @@ const IndexPage: React.FC = () => {
   return (
     <>
       <SEO title="Home" />
-      
+
       <div className="fixed inset-0 -z-10 bg-black">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]"></div>
       </div>
-      
-      <main className="relative flex min-h-[calc(100vh-258px)] flex-col-reverse items-center justify-center gap-12 px-4 md:min-h-[calc(100vh-216px)] md:flex-row">
+
+      <section
+        ref={heroRef}
+        className="relative flex min-h-[calc(100vh-258px)] flex-col-reverse items-center justify-center gap-12 px-4 md:min-h-[calc(100vh-216px)] md:flex-row"
+      >
         <div className="text-center md:w-2/3 md:text-left">
           <h1 ref={headingRef} className="mb-8 text-3xl font-bold text-white">
             Hey there, I'm Abhinav!{" "}
@@ -200,11 +239,12 @@ const IndexPage: React.FC = () => {
             </span>
           </h1>
           <span className="font-semibold"> I am a ....</span>{" "}
-          
           {/* Quirky Rotating Role Section */}
           <div className="mb-8 min-h-[60px]">
             <div className="mb-4 flex items-center justify-center md:justify-start">
-              <span className="mr-3 text-2xl">{roles[currentRoleIndex].emoji}</span>
+              <span className="mr-3 text-2xl">
+                {roles[currentRoleIndex].emoji}
+              </span>
               <span
                 ref={roleRef}
                 className={`text-2xl font-bold ${roles[currentRoleIndex].color} transition-colors duration-300`}
@@ -212,7 +252,7 @@ const IndexPage: React.FC = () => {
                 {roles[currentRoleIndex].title}
               </span>
             </div>
-            
+
             {/* Role indicators */}
             <div className="mb-6 flex justify-center gap-2 md:justify-start">
               {roles.map((_, index) => (
@@ -229,14 +269,12 @@ const IndexPage: React.FC = () => {
               ))}
             </div>
           </div>
-
           <section
             ref={aboutRef}
             className="mb-8 text-balance text-lg tracking-wide"
           >
-           <p className="mb-4 text-gray-300">
-              <span className="font-semibold text-emerald-400"></span>{" "}
-              From{" "}
+            <p className="mb-4 text-gray-300">
+              <span className="font-semibold text-emerald-400"></span> From{" "}
               <OutboundLink
                 href="https://www.northeastern.edu/"
                 target="_blank"
@@ -246,12 +284,13 @@ const IndexPage: React.FC = () => {
                 Northeastern University
               </OutboundLink>{" "}
             </p>
-            
+
             <p className="mb-6 text-gray-300">
               Building some{" "}
               <Link
-                to="/work" 
-                className="relative inline font-sans text-blue-400 no-underline transition-colors duration-200 before:absolute before:bottom-0 before:h-px before:w-0 before:bg-current before:transition-all before:content-[''] hover:text-blue-300 hover:no-underline hover:before:w-full focus:outline-none focus-visible:before:w-full">
+                to="/work"
+                className="relative inline font-sans text-blue-400 no-underline transition-colors duration-200 before:absolute before:bottom-0 before:h-px before:w-0 before:bg-current before:transition-all before:content-[''] hover:text-blue-300 hover:no-underline hover:before:w-full focus:outline-none focus-visible:before:w-full"
+              >
                 exciting side projects
               </Link>{" "}
               , and sharing knowledge through{" "}
@@ -263,21 +302,40 @@ const IndexPage: React.FC = () => {
               </Link>{" "}
               ✍️!
             </p>
-  
+
+            {/* Resume CTA — a terminal-flavoured chip rather than a bare link */}
             <OutboundLink
               href="https://drive.google.com/file/d/1D0RQ3EOK2_y-hOspw3t5eveZvWbTH-cd/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-3 text-gray-300 no-underline transition-colors hover:text-emerald-400 hover:no-underline"
+              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-lg border border-emerald-400/25 bg-emerald-400/[0.06] px-5 py-3 font-mono text-sm tracking-wide text-gray-200 no-underline transition duration-300 hover:-translate-y-0.5 hover:border-emerald-400/60 hover:bg-emerald-400/10 hover:text-white hover:no-underline hover:shadow-[0_10px_30px_-14px_rgba(52,211,153,0.6)] focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black active:translate-y-0 active:bg-emerald-400/20 motion-reduce:transform-none motion-reduce:transition-none"
               onClick={mediumHaptic}
             >
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-400/10 text-xl transition-colors group-hover:bg-emerald-400/20">
-                📄
+              {/* A single emerald sheen crosses the chip on hover. */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full motion-reduce:hidden"
+              />
+
+              <PiFileText
+                aria-hidden="true"
+                className="h-5 w-5 shrink-0 text-emerald-400"
+              />
+              <span className="font-medium">View Resume</span>
+
+              <span
+                aria-hidden="true"
+                className="h-4 w-px shrink-0 bg-emerald-400/25 transition-colors group-hover:bg-emerald-400/50"
+              />
+              <span className="text-[11px] tracking-[0.2em] text-gray-400 transition-colors group-hover:text-emerald-300">
+                PDF
               </span>
-              <span className="text-base font-medium">View Resume</span>
-              <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
+
+              <PiArrowSquareOut
+                aria-hidden="true"
+                className="h-4 w-4 shrink-0 text-gray-400 transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-emerald-300 motion-reduce:transform-none motion-reduce:transition-none"
+              />
+              <span className="sr-only">(opens in a new tab)</span>
             </OutboundLink>
           </section>
         </div>
@@ -286,7 +344,7 @@ const IndexPage: React.FC = () => {
         <div ref={imgWrapperRef} className="relative">
           <div className="absolute -inset-4 rounded-2xl bg-gradient-to-r from-emerald-400 via-teal-400 to-purple-400 opacity-20 blur-2xl"></div>
           <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-emerald-500/20 to-purple-500/20"></div>
-          
+
           {/* Image indicators */}
           {/* <div className="absolute -bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-2">
             {images.map((_, index) => (
@@ -419,32 +477,23 @@ const IndexPage: React.FC = () => {
           </div>
         </div>
 
-        <a
-          href="#about"
-          onClick={lightHaptic}
-          aria-label="Scroll to my commits"
-          className="absolute bottom-0 left-1/2 hidden -translate-x-1/2 text-gray-500 no-underline transition-colors hover:text-emerald-400 hover:no-underline md:block"
-        >
-          <svg
-            className="h-6 w-6 animate-bounce"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 14l-7 7m0 0l-7-7"
-            />
-          </svg>
-        </a>
-      </main>
+        <ScrollCue
+          targetId="about"
+          label="git log"
+          ariaLabel="Scroll to my commit log"
+        />
+      </section>
+
+      {/* Seam between the two screens — a soft landing instead of a hard cut */}
+      <div
+        aria-hidden="true"
+        className="mx-auto h-px w-full max-w-4xl bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent"
+      />
 
       {/* About — commit log of my journey, revealed on scroll */}
       <section
         id="about"
-        className="scroll-mt-8 py-16 font-mono text-gray-300 md:py-24"
+        className="scroll-mt-24 py-20 font-mono text-gray-300 focus:outline-none md:py-28"
       >
         <Timeline />
       </section>
