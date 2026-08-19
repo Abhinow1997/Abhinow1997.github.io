@@ -1,3 +1,52 @@
+import gsap from "gsap"
+import { ScrollToPlugin } from "gsap/ScrollToPlugin"
+
+gsap.registerPlugin(ScrollToPlugin)
+
+export const prefersReducedMotion = (): boolean =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
+/**
+ * Eased travel to an in-page section. Returns false when the caller should let
+ * the browser handle the anchor natively (missing target, or reduced motion).
+ */
+export const scrollToSection = (targetId: string): boolean => {
+  if (typeof document === "undefined") return false
+
+  const target = document.getElementById(targetId)
+
+  if (!target || prefersReducedMotion()) return false
+
+  const root = document.documentElement
+  const previousBehavior = root.style.scrollBehavior
+  // CSS smooth scrolling fights a tweened scroll position, so hand the travel
+  // over to GSAP for the duration of the tween.
+  root.style.scrollBehavior = "auto"
+
+  const restore = () => {
+    root.style.scrollBehavior = previousBehavior
+  }
+
+  const distance = Math.abs(target.getBoundingClientRect().top)
+
+  gsap.to(window, {
+    scrollTo: { y: target, offsetY: 32, autoKill: true },
+    duration: gsap.utils.clamp(0.9, 1.6, distance / 900),
+    ease: "power2.inOut",
+    onInterrupt: restore,
+    onComplete: () => {
+      restore()
+      // Keep keyboard and screen-reader position in step with the visual move.
+      target.setAttribute("tabindex", "-1")
+      target.focus({ preventScroll: true })
+      window.history.replaceState(null, "", `#${targetId}`)
+    },
+  })
+
+  return true
+}
+
 const isIOS = () => {
   if (typeof window === "undefined") return false
   return (

@@ -3,6 +3,7 @@ import React, { useRef } from "react"
 import { useGSAP } from "@gsap/react"
 import { OutboundLink } from "gatsby-plugin-google-gtag"
 import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 import {
   FaCode,
   FaJava,
@@ -10,16 +11,18 @@ import {
   FaPython,
   FaSnowflake,
 } from "react-icons/fa"
+import { PiArrowSquareOut } from "react-icons/pi"
 import {
+  SiApachespark,
   SiCplusplus,
   SiJupyter,
-  SiTypescript,
   SiScala,
-  SiApachespark,
+  SiTypescript,
 } from "react-icons/si"
-import { useMediaQuery } from "usehooks-ts"
 
-import { titleCase } from "@utils"
+import { prefersReducedMotion, titleCase } from "@utils"
+
+gsap.registerPlugin(ScrollTrigger)
 
 export interface Project {
   id: number
@@ -54,7 +57,8 @@ const PROJECTS: Project[] = [
     description:
       "Build a pipeline to create a dashboard that displays the inverse treasury yield curve, derived from FRED's U.S. Treasury yield data for 10-Year and 2-Year bonds.",
     language: "Snowflake",
-    html_url: "https://github.com/BigDataIA-Spring2025-4/DAMG7245_Assignment03_Part02",
+    html_url:
+      "https://github.com/BigDataIA-Spring2025-4/DAMG7245_Assignment03_Part02",
   },
   {
     id: 4,
@@ -62,7 +66,8 @@ const PROJECTS: Project[] = [
     description:
       "Developed a Naïve RAG-based system automating the extraction, processing, and analysis of NVIDIA’s quarterly financial reports.",
     language: "Python",
-    html_url: "https://github.com/BigDataIA-Spring2025-4/DAMG7245_Assignment04_Part02",
+    html_url:
+      "https://github.com/BigDataIA-Spring2025-4/DAMG7245_Assignment04_Part02",
   },
   {
     id: 5,
@@ -78,48 +83,42 @@ const PROJECTS: Project[] = [
     description:
       "Chatbot that answers questions from PDF documents using NLP techniques like text extraction, embedding, and LLMs.",
     language: "Python",
-    html_url: "https://github.com/BigDataIA-Spring2025-4/Web-and-PDF-Data-Extraction-Tool",
-    homepage: "https://enchanting-roundworm-f3c.notion.site/Web-PDF-Data-Extraction-Tool-19f576459f01800f9fa8c06a6ddec009",
+    html_url:
+      "https://github.com/BigDataIA-Spring2025-4/Web-and-PDF-Data-Extraction-Tool",
+    homepage:
+      "https://enchanting-roundworm-f3c.notion.site/Web-PDF-Data-Extraction-Tool-19f576459f01800f9fa8c06a6ddec009",
   },
 ]
 
 const Projects: React.FC = () => {
   const projectsRef = useRef<HTMLElement | null>(null)
-  const isDesktop = useMediaQuery("(min-width: 768px)")
 
   useGSAP(() => {
-    const tl = gsap.timeline()
+    if (!projectsRef.current || prefersReducedMotion()) return
 
-    if (projectsRef.current) {
-      tl.fromTo(
-        projectsRef.current.children,
-        {
-          x: (index) => (isDesktop ? (index % 2 === 0 ? -24 : 24) : 0),
-          y: isDesktop ? 0 : -12,
-          opacity: 0,
-        },
-        {
-          x: 0,
-          y: 0,
-          opacity: 1,
-          stagger: 0.06,
-          ease: "power2.out",
-          duration: 0.5,
-        }
-      )
-    }
-  }, [isDesktop])
+    gsap.from(projectsRef.current.children, {
+      opacity: 0,
+      y: 16,
+      duration: 0.45,
+      // grid: "auto" lets GSAP read the CSS grid so the cards arrive as a wave
+      // across rows rather than one long queue.
+      stagger: { each: 0.06, from: "start", grid: "auto" },
+      ease: "power2.out",
+      clearProps: "opacity,transform",
+      scrollTrigger: { trigger: projectsRef.current, start: "top 85%" },
+    })
+  }, [])
 
   return (
-    <div className="mx-auto max-w-6xl px-4">
-      <div className="mb-8 text-center">
-        <h2 className="mb-2 text-3xl font-bold text-emerald-400">
-          Featured Projects
+    <div className="mx-auto max-w-6xl">
+      <header className="mb-8">
+        <h2 className="mb-2 font-mono text-lg font-bold text-emerald-400">
+          $ ls ~/projects
         </h2>
-        <p className="text-gray-400">
+        <p className="font-mono text-sm text-gray-400">
           Some of my work in data engineering, ML, and software development
         </p>
-      </div>
+      </header>
 
       <section ref={projectsRef} className="grid gap-6 md:grid-cols-2">
         {PROJECTS.map((project) => (
@@ -127,17 +126,35 @@ const Projects: React.FC = () => {
         ))}
       </section>
 
-      <div className="mt-12 text-center">
+      <div className="mt-12">
         <OutboundLink
           href="https://github.com/Abhinow1997?tab=repositories"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-lg border-2 border-emerald-400 px-6 py-3 font-semibold text-emerald-400 transition-all hover:bg-emerald-400/10"
+          className="group inline-block rounded-lg no-underline hover:no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
         >
-          View More on GitHub
-          <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-          </svg>
+          {/* Same chip as the resume CTA: the anchor is left free for GSAP, the
+              inner span owns every CSS transition. */}
+          <span className="relative flex items-center gap-3 overflow-hidden whitespace-nowrap rounded-lg border border-emerald-400/25 bg-emerald-400/[0.06] px-5 py-3 font-mono text-sm tracking-wide text-gray-200 transition duration-300 group-hover:-translate-y-0.5 group-hover:border-emerald-400/60 group-hover:bg-emerald-400/10 group-hover:text-white group-hover:shadow-[0_10px_30px_-14px_rgba(52,211,153,0.6)] group-active:translate-y-0 group-active:bg-emerald-400/20 motion-reduce:transform-none motion-reduce:transition-none">
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full motion-reduce:hidden"
+            />
+            <svg
+              aria-hidden="true"
+              className="h-5 w-5 shrink-0 text-emerald-400"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+            </svg>
+            <span className="shrink-0 font-medium">More on GitHub</span>
+            <PiArrowSquareOut
+              aria-hidden="true"
+              className="h-4 w-4 shrink-0 text-gray-400 transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-emerald-300 motion-reduce:transform-none motion-reduce:transition-none"
+            />
+            <span className="sr-only">(opens in a new tab)</span>
+          </span>
         </OutboundLink>
       </div>
     </div>
@@ -158,7 +175,7 @@ const iconMap: { [key: string]: React.ComponentType } = {
   Scala: SiScala,
   Spark: SiApachespark,
   Java: FaJava,
-  Snowflake: FaSnowflake 
+  Snowflake: FaSnowflake,
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
