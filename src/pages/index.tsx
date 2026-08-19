@@ -9,8 +9,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { PiArrowSquareOut, PiFileText } from "react-icons/pi"
 import { useMediaQuery } from "usehooks-ts"
 
-import { ScrollCue, SEO, Timeline } from "@components"
-import { mediumHaptic } from "@utils"
+import { Projects, ScrollCue, SEO, Timeline } from "@components"
+import { mediumHaptic, scrollToSection } from "@utils"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -290,12 +290,15 @@ const IndexPage: React.FC = () => {
 
             <p className="mb-6 text-gray-300">
               Building some{" "}
-              <Link
-                to="/work"
+              <a
+                href="#projects"
+                onClick={(event) => {
+                  if (scrollToSection("projects")) event.preventDefault()
+                }}
                 className="relative inline font-sans text-blue-400 no-underline transition-colors duration-200 before:absolute before:bottom-0 before:h-px before:w-0 before:bg-current before:transition-all before:content-[''] hover:text-blue-300 hover:no-underline hover:before:w-full focus:outline-none focus-visible:before:w-full"
               >
                 exciting side projects
-              </Link>{" "}
+              </a>{" "}
               , and sharing knowledge through{" "}
               <Link
                 to="/blog"
@@ -491,14 +494,29 @@ const IndexPage: React.FC = () => {
         targetId="about"
         label="git log"
         ariaLabel="git log — scroll to my commit log"
+        revealDelay={1.5}
       />
 
       {/* About — commit log of my journey, revealed on scroll */}
       <section
         id="about"
-        className="scroll-mt-24 py-20 font-mono text-gray-300 focus:outline-none md:py-28"
+        className="scroll-mt-24 py-10 font-mono text-gray-300 focus:outline-none md:py-14"
       >
         <Timeline />
+      </section>
+
+      <ScrollCue
+        targetId="projects"
+        label="ls projects"
+        ariaLabel="ls projects — scroll to my projects"
+      />
+
+      {/* Projects — inlined here so the work is one scroll away, not one page */}
+      <section
+        id="projects"
+        className="scroll-mt-24 py-10 focus:outline-none md:py-14"
+      >
+        <Projects />
       </section>
     </>
   )

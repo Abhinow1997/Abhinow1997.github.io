@@ -2,17 +2,12 @@ import React, { useRef } from "react"
 
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
-import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { PiCaretDown } from "react-icons/pi"
 
-import { lightHaptic } from "@utils"
+import { lightHaptic, prefersReducedMotion, scrollToSection } from "@utils"
 
-gsap.registerPlugin(ScrollToPlugin, ScrollTrigger)
-
-const prefersReducedMotion = (): boolean =>
-  typeof window !== "undefined" &&
-  window.matchMedia("(prefers-reduced-motion: reduce)").matches
+gsap.registerPlugin(ScrollTrigger)
 
 export interface ScrollCueProps {
   /** id of the section to travel to */
@@ -20,18 +15,21 @@ export interface ScrollCueProps {
   /** short mono label that sits on the rule */
   label?: string
   ariaLabel: string
+  /** hold the reveal back, e.g. until a hero intro has settled */
+  revealDelay?: number
 }
 
 /**
- * The boundary between two stacked screens, doubling as the invitation to cross
+ * The boundary between two stacked sections, doubling as the invitation to cross
  * it: a hairline rule that breaks around a mono label. Sitting on the seam keeps
- * it clear of the hero's crowded middle, and the full-width rule reads as
+ * it clear of a section's crowded middle, and the full-width rule reads as
  * structure rather than a floating ornament.
  */
 const ScrollCue: React.FC<ScrollCueProps> = ({
   targetId,
   label = "scroll",
   ariaLabel,
+  revealDelay = 0,
 }) => {
   const rootRef = useRef<HTMLDivElement | null>(null)
   const leftRuleRef = useRef<HTMLSpanElement | null>(null)
@@ -42,28 +40,37 @@ const ScrollCue: React.FC<ScrollCueProps> = ({
     () => {
       if (prefersReducedMotion()) return
 
-      // The rule draws itself outward from the label once the hero has settled.
+      // The rule draws itself outward from the label as the seam comes into
+      // view — every instance animates where it is read, not on page load.
       gsap.from([leftRuleRef.current, rightRuleRef.current], {
         scaleX: 0,
         duration: 0.9,
-        delay: 1.5,
+        delay: revealDelay,
         ease: "power2.out",
         // Hand the inline transform back afterwards so nothing is left scaled
         // to zero if the tween is ever interrupted.
         clearProps: "transform",
+        scrollTrigger: { trigger: rootRef.current, start: "top 95%" },
       })
 
       // A slow drip downwards — the only moving part, and it rests between beats.
       gsap
-        .timeline({ repeat: -1, repeatDelay: 2.4, delay: 2.4 })
+        .timeline({ repeat: -1, repeatDelay: 2.4, delay: revealDelay + 0.9 })
         .to(caretRef.current, { y: 4, duration: 0.5, ease: "power1.inOut" })
         .to(caretRef.current, { y: 0, duration: 0.5, ease: "power1.inOut" })
 
-      // Once you are reading, the invitation retires and the rule stays as structure.
+      // The caret invites you downwards while the seam sits low in the viewport,
+      // then retires as you scroll past it. Relative to the cue, so it works
+      // wherever on the page the cue happens to sit.
       gsap.to(caretRef.current, {
         autoAlpha: 0,
         ease: "none",
-        scrollTrigger: { start: 40, end: 260, scrub: 0.3 },
+        scrollTrigger: {
+          trigger: rootRef.current,
+          start: "top 60%",
+          end: "top 20%",
+          scrub: 0.3,
+        },
       })
     },
     { scope: rootRef }
@@ -72,39 +79,7 @@ const ScrollCue: React.FC<ScrollCueProps> = ({
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>): void => {
     lightHaptic()
 
-    const target = document.getElementById(targetId)
-
-    // No JS-driven travel for reduced motion — the native anchor jump is the
-    // accessible behaviour there.
-    if (!target || prefersReducedMotion()) return
-
-    event.preventDefault()
-
-    const root = document.documentElement
-    const previousBehavior = root.style.scrollBehavior
-    // CSS smooth scrolling fights a tweened scroll position, so hand the
-    // travel over to GSAP for the duration of the tween.
-    root.style.scrollBehavior = "auto"
-
-    const restore = () => {
-      root.style.scrollBehavior = previousBehavior
-    }
-
-    const distance = Math.abs(target.getBoundingClientRect().top)
-
-    gsap.to(window, {
-      scrollTo: { y: target, offsetY: 32, autoKill: true },
-      duration: gsap.utils.clamp(0.9, 1.6, distance / 900),
-      ease: "power2.inOut",
-      onInterrupt: restore,
-      onComplete: () => {
-        restore()
-        // Keep keyboard and screen-reader position in step with the visual move.
-        target.setAttribute("tabindex", "-1")
-        target.focus({ preventScroll: true })
-        window.history.replaceState(null, "", `#${targetId}`)
-      },
-    })
+    if (scrollToSection(targetId)) event.preventDefault()
   }
 
   return (
