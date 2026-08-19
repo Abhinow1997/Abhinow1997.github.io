@@ -148,6 +148,9 @@ const IndexPage: React.FC = () => {
         opacity: 0,
         ease: "power1.out",
         stagger: 0.3,
+        // Drop the inline opacity/transform afterwards so a CSS transition on a
+        // child can never end up fighting a leftover GSAP value.
+        clearProps: "opacity,transform",
       })
     }
 
@@ -308,34 +311,39 @@ const IndexPage: React.FC = () => {
               href="https://drive.google.com/file/d/1D0RQ3EOK2_y-hOspw3t5eveZvWbTH-cd/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-lg border border-emerald-400/25 bg-emerald-400/[0.06] px-5 py-3 font-mono text-sm tracking-wide text-gray-200 no-underline transition duration-300 hover:-translate-y-0.5 hover:border-emerald-400/60 hover:bg-emerald-400/10 hover:text-white hover:no-underline hover:shadow-[0_10px_30px_-14px_rgba(52,211,153,0.6)] focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black active:translate-y-0 active:bg-emerald-400/20 motion-reduce:transform-none motion-reduce:transition-none"
+              className="group inline-block rounded-lg no-underline hover:no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
               onClick={mediumHaptic}
             >
-              {/* A single emerald sheen crosses the chip on hover. */}
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full motion-reduce:hidden"
-              />
+              {/* The anchor itself is left to the intro tween (opacity + y); all
+                  CSS transitions live on this inner chip so the two never fight
+                  over the same properties. */}
+              <span className="relative flex items-center gap-3 overflow-hidden whitespace-nowrap rounded-lg border border-emerald-400/25 bg-emerald-400/[0.06] px-5 py-3 font-mono text-sm tracking-wide text-gray-200 transition duration-300 group-hover:-translate-y-0.5 group-hover:border-emerald-400/60 group-hover:bg-emerald-400/10 group-hover:text-white group-hover:shadow-[0_10px_30px_-14px_rgba(52,211,153,0.6)] group-active:translate-y-0 group-active:bg-emerald-400/20 motion-reduce:transform-none motion-reduce:transition-none">
+                {/* A single emerald sheen crosses the chip on hover. */}
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full motion-reduce:hidden"
+                />
 
-              <PiFileText
-                aria-hidden="true"
-                className="h-5 w-5 shrink-0 text-emerald-400"
-              />
-              <span className="font-medium">View Resume</span>
+                <PiFileText
+                  aria-hidden="true"
+                  className="h-5 w-5 shrink-0 text-emerald-400"
+                />
+                <span className="shrink-0 font-medium">View Resume</span>
 
-              <span
-                aria-hidden="true"
-                className="h-4 w-px shrink-0 bg-emerald-400/25 transition-colors group-hover:bg-emerald-400/50"
-              />
-              <span className="text-[11px] tracking-[0.2em] text-gray-400 transition-colors group-hover:text-emerald-300">
-                PDF
+                <span
+                  aria-hidden="true"
+                  className="h-4 w-px shrink-0 bg-emerald-400/25 transition-colors group-hover:bg-emerald-400/50"
+                />
+                <span className="text-[11px] tracking-[0.2em] text-gray-400 transition-colors group-hover:text-emerald-300">
+                  PDF
+                </span>
+
+                <PiArrowSquareOut
+                  aria-hidden="true"
+                  className="h-4 w-4 shrink-0 text-gray-400 transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-emerald-300 motion-reduce:transform-none motion-reduce:transition-none"
+                />
+                <span className="sr-only">(opens in a new tab)</span>
               </span>
-
-              <PiArrowSquareOut
-                aria-hidden="true"
-                className="h-4 w-4 shrink-0 text-gray-400 transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-emerald-300 motion-reduce:transform-none motion-reduce:transition-none"
-              />
-              <span className="sr-only">(opens in a new tab)</span>
             </OutboundLink>
           </section>
         </div>
@@ -476,18 +484,13 @@ const IndexPage: React.FC = () => {
             </div>
           </div>
         </div>
-
-        <ScrollCue
-          targetId="about"
-          label="git log"
-          ariaLabel="Scroll to my commit log"
-        />
       </section>
 
-      {/* Seam between the two screens — a soft landing instead of a hard cut */}
-      <div
-        aria-hidden="true"
-        className="mx-auto h-px w-full max-w-4xl bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent"
+      {/* The boundary between the two screens, and the invitation to cross it */}
+      <ScrollCue
+        targetId="about"
+        label="git log"
+        ariaLabel="git log — scroll to my commit log"
       />
 
       {/* About — commit log of my journey, revealed on scroll */}

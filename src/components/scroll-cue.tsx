@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { PiCaretDown } from "react-icons/pi"
 
 import { lightHaptic } from "@utils"
 
@@ -16,14 +17,16 @@ const prefersReducedMotion = (): boolean =>
 export interface ScrollCueProps {
   /** id of the section to travel to */
   targetId: string
-  /** short mono label above the hairline */
+  /** short mono label that sits on the rule */
   label?: string
   ariaLabel: string
 }
 
 /**
- * A hairline with a light travelling down it — quieter than a bouncing arrow,
- * and it reads like a cursor dropping into the terminal section below.
+ * The boundary between two stacked screens, doubling as the invitation to cross
+ * it: a hairline rule that breaks around a mono label. Sitting on the seam keeps
+ * it clear of the hero's crowded middle, and the full-width rule reads as
+ * structure rather than a floating ornament.
  */
 const ScrollCue: React.FC<ScrollCueProps> = ({
   targetId,
@@ -31,42 +34,36 @@ const ScrollCue: React.FC<ScrollCueProps> = ({
   ariaLabel,
 }) => {
   const rootRef = useRef<HTMLDivElement | null>(null)
-  const linkRef = useRef<HTMLAnchorElement | null>(null)
-  const pulseRef = useRef<HTMLSpanElement | null>(null)
+  const leftRuleRef = useRef<HTMLSpanElement | null>(null)
+  const rightRuleRef = useRef<HTMLSpanElement | null>(null)
+  const caretRef = useRef<HTMLSpanElement | null>(null)
 
   useGSAP(
     () => {
       if (prefersReducedMotion()) return
 
-      // Arrive after the hero intro has settled.
-      gsap.from(linkRef.current, {
-        autoAlpha: 0,
-        y: -8,
-        duration: 0.6,
-        delay: 1.6,
+      // The rule draws itself outward from the label once the hero has settled.
+      gsap.from([leftRuleRef.current, rightRuleRef.current], {
+        scaleX: 0,
+        duration: 0.9,
+        delay: 1.5,
         ease: "power2.out",
+        // Hand the inline transform back afterwards so nothing is left scaled
+        // to zero if the tween is ever interrupted.
+        clearProps: "transform",
       })
 
+      // A slow drip downwards — the only moving part, and it rests between beats.
       gsap
-        .timeline({ repeat: -1, repeatDelay: 1, delay: 2.2 })
-        .fromTo(
-          pulseRef.current,
-          { y: -18, autoAlpha: 0 },
-          { y: 2, autoAlpha: 1, duration: 0.45, ease: "power1.out" }
-        )
-        .to(pulseRef.current, {
-          y: 56,
-          autoAlpha: 0,
-          duration: 1.2,
-          ease: "power2.in",
-        })
+        .timeline({ repeat: -1, repeatDelay: 2.4, delay: 2.4 })
+        .to(caretRef.current, { y: 4, duration: 0.5, ease: "power1.inOut" })
+        .to(caretRef.current, { y: 0, duration: 0.5, ease: "power1.inOut" })
 
-      // The cue is only useful before you start reading, so retire it as the
-      // page moves rather than leaving it looping over the section below.
-      gsap.to(rootRef.current, {
+      // Once you are reading, the invitation retires and the rule stays as structure.
+      gsap.to(caretRef.current, {
         autoAlpha: 0,
         ease: "none",
-        scrollTrigger: { start: 0, end: 260, scrub: 0.3 },
+        scrollTrigger: { start: 40, end: 260, scrub: 0.3 },
       })
     },
     { scope: rootRef }
@@ -113,29 +110,36 @@ const ScrollCue: React.FC<ScrollCueProps> = ({
   return (
     <div
       ref={rootRef}
-      className="pointer-events-none absolute bottom-0 left-1/2 hidden -translate-x-1/2 md:block"
+      className="mx-auto flex w-full max-w-4xl items-center gap-4 sm:gap-6"
     >
+      <span
+        ref={leftRuleRef}
+        aria-hidden="true"
+        className="h-px flex-1 origin-right bg-gradient-to-r from-transparent to-emerald-400/25"
+      />
+
       <a
-        ref={linkRef}
         href={`#${targetId}`}
         onClick={handleClick}
         aria-label={ariaLabel}
-        className="pointer-events-auto flex flex-col items-center gap-3 rounded-md px-6 pb-1 pt-3 text-gray-600 no-underline transition-colors duration-300 hover:text-emerald-400 hover:no-underline focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-400/60"
+        className="group flex min-h-[44px] shrink-0 items-center gap-2 rounded-md px-3 no-underline transition-colors duration-200 hover:no-underline focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-400/60"
       >
-        <span className="font-mono text-[10px] uppercase tracking-[0.3em]">
+        <span className="whitespace-nowrap font-mono text-[11px] tracking-[0.2em] text-gray-400 transition-colors duration-200 group-hover:text-emerald-300">
           {label}
         </span>
-
-        <span
-          aria-hidden="true"
-          className="relative block h-14 w-px overflow-hidden bg-gradient-to-b from-current to-transparent opacity-40"
-        >
-          <span
-            ref={pulseRef}
-            className="absolute left-0 top-0 block h-4 w-px bg-current shadow-[0_0_6px_currentColor]"
+        <span ref={caretRef} className="block">
+          <PiCaretDown
+            aria-hidden="true"
+            className="h-3 w-3 text-gray-500 transition-colors duration-200 group-hover:text-emerald-300"
           />
         </span>
       </a>
+
+      <span
+        ref={rightRuleRef}
+        aria-hidden="true"
+        className="h-px flex-1 origin-left bg-gradient-to-l from-transparent to-emerald-400/25"
+      />
     </div>
   )
 }
